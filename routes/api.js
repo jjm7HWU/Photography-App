@@ -1,14 +1,25 @@
+/*
+//  API that returns JSON data used for display in the app and website
+*/
+
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const { database } = require("../key");
 
 const router = express.Router();
 
-router.get("/marmot", (req, res) => {
-  res.send("<img src='https://www.hcn.org/blogs/range/the-meaning-of-marmot-whistles/marmot-buddy-png/@@images/e3f15354-7bd0-43da-b05f-52b74931337d.png'/>");
-});
+/* Sends information for photo of specified reference number */
+router.get("/photo/:ref", (req, res) => {
 
-router.get("/puffin", (req, res) => {
-  res.send("<img src='https://www.johnogroat-journal.co.uk/_media/img/PJVDKVM4XO2WU6GO69EN.jpg'/>");
+  req.params.ref = parseInt(req.params.ref);
+
+  let collection = database.collection("photos");
+
+  collection.findOne({ "ref": req.params.ref }).then(entry => {
+    res.send(entry);
+  });
+
 });
 
 module.exports = router;

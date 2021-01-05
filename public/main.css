@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  font-family: Lato;
+  --color-gray: #e8e8e8;
+  --color-light-gray: #f6f6f6;
+}
+
+html, body {
+  background: var(--color-light-gray);
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.2rem;
+}
+
+.container {
+  width: var(--container-width);
+  margin: auto;
+}
+
+.header {
+  width: 100vw;
+  height: 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: white;
+  padding: 1rem 0;
+}
+
+.header h1 {
+  font-size: 2rem;
+}
+
+.header .container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.search {
+  border: 1px solid var(--color-gray);
+  border-radius: 0.2rem;
+  height: 2rem;
+  text-indent: 1rem;
+}
+
+@media screen and (min-width: 800px) {
+  :root {
+    font-size: 16px;
+    --container-width: 800px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  :root {
+    font-size: 2vw;
+    --container-width: 100vw;
+  }
+}

@@ -1,6 +1,7 @@
 const fs = require("fs");
 const s3 = require("../objects/bucket");
 
+/* TEMP: Uploads image from file system */
 function uploadImage(imageName) {
 
   const contents = fs.readFileSync(imageName);

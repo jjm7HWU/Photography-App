@@ -1,19 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const { database } = require("../key");
+
+const path = require("path");
 
 const router = express.Router();
 
+/* Serves page containing post according to reference number */
 router.get("/:ref", (req, res) => {
 
-  req.params.ref = parseInt(req.params.ref);
-
-  let collection = database.collection("photos");
-
-  collection.findOne({ "ref": req.params.ref }).then(entry => {
-    res.send(entry);
-  });
+  res.sendFile(path.join(__dirname, "..", "views", "photo", "index.html"));
 
 });
 

@@ -34,8 +34,12 @@
         </div>
 
         <div class="post-footer">
-          <h5 id="hearts"></h5>
-          <h5 id="location"></h5>
+          <div>
+            <img src="https://photography-app-content.s3.amazonaws.com/content/comment.svg" style="width: 2rem; height: 2rem;"/>
+            <img src="https://photography-app-content.s3.amazonaws.com/content/heart.svg" style="width: 2rem; height: 2rem;"/>
+            <h4 id="hearts"></h4>
+          </div>
+          <h4 id="location"></h4>
         </div>
 
         <div id="comments">
@@ -121,6 +125,11 @@
 .post-footer {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.post-footer div * {
+  float: left;
+  margin-right: 0.5rem;
 }
 
 #location {

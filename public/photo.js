@@ -9,7 +9,7 @@ function renderPost(data) {
   element("poster-username").innerHTML = data.poster;
   element("location").innerHTML = data.location;
   element("caption").innerHTML = data.caption;
-  element("hearts").innerHTML = `${data.hearts} hearts`;
+  element("hearts").innerHTML = `${data.hearts}`;
 }
 
 /* Return photo reference number found in URL */

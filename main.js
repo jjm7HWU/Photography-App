@@ -8,11 +8,11 @@ const server = http.createServer(app);
 
 const mongoose = require("mongoose");
 
-// database object
-const { database } = require("./key");
-
 // configure environment variables
 dotenv.config();
+
+// database object
+const { database } = require("./key");
 
 // static content in 'public' directory is served for website
 app.use(express.static(path.join(__dirname, "public")));

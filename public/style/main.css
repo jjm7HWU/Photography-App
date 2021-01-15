@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  font-family: Lato;
+  --color-gray: #e8e8e8;
+  --color-light-gray: #f6f6f6;
+  --color-shadow: #ddd;
+  --bg-color: #f0f0f0;
+  --box-bg-color: white;
+}
+
+html, body {
+  background: var(--bg-color);
+}
+
+body {
+  margin: 5rem 0;
+}
+
+h1 {
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.box {
+  background: var(--box-bg-color);
+  margin-top: 1rem;
+  border-radius: 0.6rem;
+  padding: 1rem;
+  box-shadow: 0 0 0.3rem 0.3rem var(--color-shadow);
+}
+
+.container {
+  width: var(--container-width);
+  margin: auto;
+}
+
+.header {
+  width: 100vw;
+  height: 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: white;
+  padding: 1rem 0;
+  border-bottom: 0.1rem solid var(--color-shadow);
+  z-index: 1;
+}
+
+.header h1 {
+  font-size: 2rem;
+}
+
+.header .container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.search {
+  border: 1px solid var(--color-gray);
+  border-radius: 0.2rem;
+  height: 2rem;
+  text-indent: 1rem;
+}
+
+.post-container {
+  width: calc(100% - 2rem);
+  margin: auto;
+}
+
+.post-header .profile-picture {
+  margin-bottom: 1rem;
+  float: left;
+  border-radius: 2rem;
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+.post-header {
+  display: block;
+  height: 2.5rem;
+}
+
+.post-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.post-footer div * {
+  float: left;
+  margin-right: 0.5rem;
+}
+
+.poster-username {
+  float: left;
+  margin-left: 0.5rem;
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.post-image {
+  width: 100%;
+}
+
+.caption-container {
+  background: rgba(0,0,0,0.5);
+  opacity: 0%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 200ms;
+}
+
+.caption-container:hover {
+  opacity: 90%;
+}
+
+.caption {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.location {
+  text-align: right;
+}
+
+.comments {
+  margin-top: 1rem;
+}
+
+@media screen and (min-width: 800px) {
+  :root {
+    font-size: 16px;
+    --container-width: 800px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  :root {
+    font-size: 2vw;
+    --container-width: 100vw;
+  }
+}

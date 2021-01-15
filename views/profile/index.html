@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Nature App</title>
+  <link rel="stylesheet" href="../style/main.css"/>
+  <link rel="stylesheet" href="../style/profile.css"/>
+</head>
+
+<body>
+  <div class="header">
+    <div class="container">
+      <h1>NatureApp</h1>
+      <input type="text" class="search" name="search" placeholder="Search" value="">
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div id="profile-page-top">
+
+      <div id="profile-page-header" class="box">
+        <img class="profile-picture" src="https://photography-app-content.s3.amazonaws.com/content/silhouette.svg"/>
+        <div>
+          <h1 id="username"></h1>
+          <h4>Level <span id="rank"></span></h4>
+          <h4 id="location"><span id="area"></span>, <span id="country"></span></h4>
+        </div>
+        <div class="side-info">
+          <h3>followers</h3>
+          <h2 id="followers"></h2>
+          <h3>following</h3>
+          <h2 id="following"></h2>
+        </div>
+      </div>
+
+      <div id="bio-container" class="box">
+        <h3 id="bio"></h3>
+        <h4 id="joined">Member since <span id="joindate"></span></h4>
+      </div>
+
+    </div>
+
+    <div id="profile-posts">
+
+    </div>
+
+  </div>
+
+
+</body>
+
+<script type="text/javascript" src="../scripts/main.js"></script>
+<script type="text/javascript" src="../scripts/photo_rendering.js"></script>
+<script type="text/javascript" src="../scripts/profile.js"></script>
+
+</html>

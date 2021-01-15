@@ -9,22 +9,6 @@ const { database } = require("../key");
 
 const router = express.Router();
 
-/* DUMMY FUNCTION - To be implemented */
-/* This will retrieve the user data from the database */
-function getUser(username) {
-  return {
-    username: username,
-    country: "United Kingdom",
-    area: "Edinburgh",
-    joindate: "27 Mar 2021",
-    bio: "I mostly do city life stuff but occasionally slip out into the wilderness.",
-    rank: 12,
-    points: 132,
-    followers: 137,
-    following: 43
-  }
-}
-
 /* Sends information for photo of specified reference number */
 router.get("/photo/:ref", (req, res) => {
 
@@ -41,9 +25,11 @@ router.get("/photo/:ref", (req, res) => {
 /* Sends dummy user information */
 router.get("/user/:username", (req, res) => {
 
-  let user = getUser(req.params.username);
+  let collection = database.collection("users");
 
-  res.send(user);
+  collection.findOne({ "username": req.params.username }).then(entry => {
+    res.send(entry);
+  });
 
 });
 

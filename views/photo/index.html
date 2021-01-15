@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>Nature App</title>
-  <link rel="stylesheet" href="http://localhost:5000/main.css"/>
+  <link rel="stylesheet" href="../style/main.css"/>
 </head>
 
 <body>
@@ -15,133 +15,14 @@
     </div>
   </div>
 
-  <div class="container">
-
-    <div class="post">
-
-      <div class="post-container">
-
-        <div class="post-header">
-          <img id="poster-profile-picture" class="profile-picture" src="https://photography-app-content.s3.amazonaws.com/content/silhouette.svg"/>
-          <h2 id="poster-username"></h2>
-        </div>
-
-        <div id="image-container">
-          <img id="post-image" src=""/>
-          <div id="caption-container">
-            <h3 id="caption"></h3>
-          </div>
-        </div>
-
-        <div class="post-footer">
-          <div>
-            <img src="https://photography-app-content.s3.amazonaws.com/content/comment.svg" style="width: 2rem; height: 2rem;"/>
-            <img src="https://photography-app-content.s3.amazonaws.com/content/heart.svg" style="width: 2rem; height: 2rem;"/>
-            <h4 id="hearts"></h4>
-          </div>
-          <h4 id="location"></h4>
-        </div>
-
-        <div id="comments">
-          <h3>No comments yet</h3>
-        </div>
-
-      </div>
-
-    </div>
+  <div id="post" class="container">
 
   </div>
 
 </body>
 
-<style media="screen">
-
-.post {
-  margin-top: 5rem;
-  background: white;
-  padding: 1rem 0;
-}
-
-.post-container {
-  width: calc(100% - 2rem);
-  margin: auto;
-}
-
-.profile-picture {
-  float: left;
-  border-radius: 2rem;
-  width: 2.2rem;
-  height: 2.2rem;
-}
-
-.post-header {
-  display: block;
-  height: 2.5rem;
-}
-
-#poster-username {
-  float: left;
-  margin-left: 0.5rem;
-  font-size: 2rem;
-  line-height: 2.5rem;
-}
-
-#image-container {
-  margin-top: 1rem;
-  position: relative;
-  width: 100%;
-  height: fit-content;
-}
-
-#post-image {
-  width: inherit;
-}
-
-#caption-container {
-  background: rgba(0,0,0,0.5);
-  opacity: 0%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: opacity 200ms;
-}
-
-#caption-container:hover {
-  opacity: 90%;
-}
-
-#caption {
-  color: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-.post-footer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.post-footer div * {
-  float: left;
-  margin-right: 0.5rem;
-}
-
-#location {
-  text-align: right;
-}
-
-#comments {
-  margin-top: 1rem;
-}
-
-</style>
-
-<script type="text/javascript" src="http://localhost:5000/photo.js"></script>
+<script type="text/javascript" src="../scripts/main.js"></script>
+<script type="text/javascript" src="../scripts/photo_rendering.js"></script>
+<script type="text/javascript" src="../scripts/photo.js"></script>
 
 </html>

@@ -1,0 +1,22 @@
+#profile-page-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 2rem;
+}
+
+#profile-page-header .profile-picture {
+  width: 8rem;
+  height: 8rem;
+}
+
+#profile-page-top .side-info {
+  text-align: right;
+}
+
+#bio-container {
+  text-align: center;
+}
+
+#joined {
+  margin-top: 1rem;
+}

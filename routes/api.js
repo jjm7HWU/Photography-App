@@ -9,6 +9,22 @@ const { database } = require("../key");
 
 const router = express.Router();
 
+/* DUMMY FUNCTION - To be implemented */
+/* This will retrieve the user data from the database */
+function getUser(username) {
+  return {
+    username: username,
+    country: "United Kingdom",
+    area: "Edinburgh",
+    joindate: "27 Mar 2021",
+    bio: "I mostly do city life stuff but occasionally slip out into the wilderness.",
+    rank: 12,
+    points: 132,
+    followers: 137,
+    following: 43
+  }
+}
+
 /* Sends information for photo of specified reference number */
 router.get("/photo/:ref", (req, res) => {
 
@@ -33,14 +49,7 @@ router.get("/user/:username", (req, res) => {
 
 });
 
-/* Sends dummy leaderboard information as an array with elements of the following format */
-/*
-    username: string
-    position: number
-    rank: number
-    points: number
-    country: string
-*/
+/* Sends dummy leaderboard information */
 router.get("/leaderboard/global", (req, res) => {
 
   let leaderboardNames = [

@@ -47,11 +47,14 @@ a {
   color: black;
 }
 
+.invisible-box, .box {
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+}
+
 .box {
   background: var(--box-bg-color);
-  margin-top: 1rem;
   border-radius: 0.6rem;
-  padding: 1rem;
   box-shadow: 0 0 0.3rem 0.3rem var(--color-shadow);
 }
 
@@ -93,17 +96,19 @@ a {
   margin: auto;
 }
 
-.post-header .profile-picture {
-  margin-bottom: 1rem;
+.profile-picture {
   float: left;
   border-radius: 2rem;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 100%;
+  margin-top: 0;
 }
 
 .post-header {
-  display: block;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;;
+  grid-gap: 1rem;
   height: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .post-footer {
@@ -164,6 +169,14 @@ a {
 
 .comments {
   margin-top: 1rem;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.right-text {
+  text-align: right;
 }
 
 @media screen and (min-width: 800px) {

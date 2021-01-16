@@ -11,7 +11,6 @@ window.onload = () => {
     renderElement(getElement("profile-page-top"), data);
   });
 
-
   const posts = getElement("profile-posts");
 
   appendPost(posts, 3);

@@ -19,8 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // initialise routes
 app.use("/api", require("./routes/api"));
-app.use("/photo", require("./routes/photo"));
-app.use("/profile", require("./routes/profile"));
+app.use("/", require("./routes/view"));
 
 // listen on port
 const PORT = 5000;

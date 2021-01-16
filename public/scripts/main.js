@@ -23,7 +23,9 @@ function renderElement(elem, data) {
       // render child element with id matching name of attribute
       let a = getElementInContainerById(elem, attribute[0]);
       if(a) a.innerHTML = attribute[1];
+      
     }
+
   });
 
 }

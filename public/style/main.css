@@ -3,15 +3,21 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: content-box;
 }
 
 :root {
   font-family: Lato;
+  --color-green: #02ed02;
+  --color-blue: #14baff;
+  --color-purple: #a723cc;
   --color-gray: #e8e8e8;
+  --color-purple-complement: #c630f0;
   --color-light-gray: #f6f6f6;
   --color-shadow: #ddd;
   --bg-color: #f0f0f0;
   --box-bg-color: white;
+  --transition-speed: 150ms;
 }
 
 html, body {
@@ -19,7 +25,7 @@ html, body {
 }
 
 body {
-  margin: 5rem 0;
+  margin: 6rem 0;
 }
 
 h1 {
@@ -49,7 +55,7 @@ a {
 
 .invisible-box, .box {
   margin: 1rem 0;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
 }
 
 .box {
@@ -58,8 +64,84 @@ a {
   box-shadow: 0 0 0.3rem 0.3rem var(--color-shadow);
 }
 
+.form-container {
+  background: var(--box-bg-color);
+  border-radius: 0.6rem;
+  box-shadow: 0 0 0.3rem 0.3rem var(--color-shadow);
+}
+
+.form-header {
+  height: 4rem;
+  line-height: 4rem;
+  border-bottom: 2px solid var(--color-gray);
+}
+
+.form {
+  padding: 1rem 2rem 2rem 2rem;
+}
+
+.form input {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  line-height: 2rem;
+  text-indent: 0.8rem;
+  border: 1px solid var(--color-gray);
+  border-radius: 0.2rem;
+}
+
+.form label {
+  display: block;
+  font-size: 1.2rem;
+  line-height: 3rem;
+}
+
+.checkbox-container {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  grid-gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.checkbox-container span {
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+input[type="checkbox"]:checked {
+  background: var(--color-blue);
+}
+
+button {
+  width: 100%;
+  padding: 1rem 0;
+  background: var(--color-purple);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 0.4rem;
+  transition: background var(--transition-speed);
+}
+
+button:hover {
+  background: var(--color-purple-complement);
+}
+
 .container {
   width: var(--container-width);
+  margin: auto;
+}
+
+.small-container {
+  width: var(--small-container-width);
   margin: auto;
 }
 
@@ -183,6 +265,7 @@ a {
   :root {
     font-size: 16px;
     --container-width: 800px;
+    --small-container-width: 450px;
   }
 }
 
@@ -190,5 +273,6 @@ a {
   :root {
     font-size: 2vw;
     --container-width: 100vw;
+    --small-container-width: min(450px, 100vw);
   }
 }

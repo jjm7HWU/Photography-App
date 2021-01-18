@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Nature App | Register</title>
+  <link rel="stylesheet" href="../style/main.css"/>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="container">
+      <h1>NatureApp</h1>
+      <input type="text" class="search" name="search" placeholder="Search" value="">
+    </div>
+  </div>
+
+  <div class="small-container">
+
+    <div class="form-container">
+
+      <div class="form-header">
+        <h3 class="center-text">Create an account</h3>
+      </div>
+
+      <div class="form">
+        <label>Email</label>
+        <input type="text" id="email" placeholder="Email address" />
+
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Username" />
+
+        <label>Password</label>
+        <input type="password" id="password1" placeholder="Password" />
+
+        <label>Confirm password</label>
+        <input type="password" id="password2" placeholder="Confirm password" />
+
+        <div class="checkbox-container">
+          <input type="checkbox" id="checkbox" />
+          <span for="checkbox">I have read and agree to the Terms of Service and Privacy Policy</span>
+        </div>
+
+        <button onclick="submitRegistration()">Register</button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</body>
+
+<script type="text/javascript" src="../scripts/main.js"></script>
+<script type="text/javascript" src="../scripts/register.js"></script>
+
+</html>

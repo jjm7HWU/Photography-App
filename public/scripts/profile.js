@@ -8,6 +8,7 @@ window.onload = () => {
   .then(res => res.json())
   .then(data => {
     console.log(data);
+    document.title = `NatureApp | ${username}'s Profile`
     renderElement(getElement("profile-page-top"), data);
   });
 

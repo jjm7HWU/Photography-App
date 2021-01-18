@@ -1,6 +1,11 @@
 const fs = require("fs");
 const s3 = require("../objects/bucket");
 
+/* Creates new user account in accounts database */
+function createAccount(data) {
+  console.log("Creating account...");
+}
+
 /* TEMP: Uploads image from file system */
 function uploadImage(imageName) {
 
@@ -19,4 +24,4 @@ function uploadImage(imageName) {
 
 }
 
-module.exports = uploadImage;
+module.exports = { createAccount, uploadImage };

@@ -30,7 +30,7 @@ router.get("/photo/:ref", (req, res) => {
 
   req.params.ref = parseInt(req.params.ref);
 
-  let collection = database.collection("photos");
+  const collection = database.collection("photos");
 
   collection.findOne({ "ref": req.params.ref }).then(entry => {
     res.send(entry);
@@ -41,7 +41,7 @@ router.get("/photo/:ref", (req, res) => {
 /* Sends dummy user information */
 router.get("/user/:username", (req, res) => {
 
-  let collection = database.collection("users");
+  const collection = database.collection("users");
 
   collection.findOne({ "username": req.params.username }).then(entry => {
     res.send(entry);

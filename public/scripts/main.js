@@ -59,7 +59,7 @@ function getElementInContainerById(container, id) {
 /* Posts data to api at location using the fetch method */
 function postMethodFetch(data, location, next) {
   fetch(URL + location, {
-    method: 'POST',
+    method: "POST",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json"

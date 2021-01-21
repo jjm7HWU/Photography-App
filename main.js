@@ -28,9 +28,9 @@ app.use((req, res, next) => {
 });
 
 // initialise routes
+app.use("/interact", require("./api/interact"));
 app.use("/api", require("./routes/api"));
 app.use("/post", require("./routes/post"));
-app.use("/interact", require("./api/interact"));
 app.use("/", require("./routes/view"));
 
 // listen on port

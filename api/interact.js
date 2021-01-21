@@ -1,27 +1,23 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const { database } = require("../key");
+const { createComment, followUser } = require("../server/user_interaction");
 
 const router = express.Router();
 
-router.post("/comment", (req, res) => {
+router.post("/", (req, res) => {
 
-  const comment = {
-    poster: req.body.poster,
-    comment: req.body.comment,
-    date: ""
-  };
+  switch (req.body.action) {
 
-  // TODO: create general function
-  const collection = database.collection("comments");
+    case "follow":
+      followUser(req.body);
+      break;
 
-  collection.findOneAndUpdate(
-    { ref: 2 },
-    { $push: { comments: comment } }
-  );
+    case "comment":
+      createComment(req.body);
+      break;
 
-  res.header("Access-Control-Allow-Origin", "*");
+  }
+
   res.send({ success: true });
 
 });

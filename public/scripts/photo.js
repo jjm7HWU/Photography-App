@@ -8,13 +8,13 @@ window.onload = () => {
   // render post
   appendPost(container, ref);
 
-  let comment = {
-    poster: "Mitch55",
-    comment: "Nice!",
-    date: ""
+  let interaction = {
+    sourceUser: "Alfonso",
+    action: "follow",
+    username: "Mitch55"
   };
 
-  postMethodFetch(comment, "/interact/comment", res => {
+  postMethodFetch(interaction, "/interact", res => {
     console.log(res);
   });
 

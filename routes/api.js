@@ -109,4 +109,18 @@ router.get("/feed/:username", (req, res) => {
 
 });
 
+/* May generalise this with a :collection paramter to remove repeated APIs */
+/* Sends comments on photo reference number */
+router.get("/comments/:ref", (req, res) => {
+
+  req.params.ref = parseInt(req.params.ref);
+
+  const collection = database.collection("comments");
+
+  collection.findOne({ "ref": req.params.ref }).then(entry => {
+    res.send(entry);
+  });
+
+});
+
 module.exports = router;

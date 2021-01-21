@@ -19,19 +19,34 @@ function renderPost(data) {
 
         <div class="post-footer">
           <div>
-            <img src="https://photography-app-content.s3.amazonaws.com/content/comment.svg" style="width: 2rem; height: 2rem;"/>
-            <img src="https://photography-app-content.s3.amazonaws.com/content/heart.svg" style="width: 2rem; height: 2rem;"/>
+            <button class="icon-button"><img src="https://photography-app-content.s3.amazonaws.com/content/comment.svg"/></button>
+            <h4 class="comments">13</h4>
+            <button class="icon-button"><img src="https://photography-app-content.s3.amazonaws.com/content/heart.svg"/></button>
             <h4 class="hearts">${data.hearts}</h4>
           </div>
           <h4 class="location">${data.location}</h4>
         </div>
 
-        <div class="comments">
-          <h3>No comments yet</h3>
+        <div id="comments-section-${data.ref}" class="comments-section">
         </div>
 
       </div>
 
+    </div>
+  `;
+}
+
+function renderComments(comments) {
+  let string = "";
+  for (let comment of comments)
+    string = string + renderComment(comment);
+  return string;
+}
+
+function renderComment(comment) {
+  return `
+    <div class="comment">
+      <span><a href="/profile/${comment.poster}"><b>${comment.poster}:</b></a> ${comment.comment}</span>
     </div>
   `;
 }
@@ -44,6 +59,14 @@ function appendPost(container, ref) {
   .then(data => {
     let post = renderPost(data);
     container.innerHTML = container.innerHTML + post;
+  });
+
+  fetch(`${URL}/api/comments/${ref}`)
+  .then(res => res.json())
+  .then(data => {
+    let comments = renderComments(data.comments);
+    let container = getElement("comments-section-"+ref);
+    container.innerHTML = container.innerHTML + comments;
   });
 
 }

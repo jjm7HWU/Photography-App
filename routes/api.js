@@ -6,6 +6,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { database } = require("../key");
+const { retrieveDocument } = require("../server/read_data");
 
 const router = express.Router();
 
@@ -110,7 +111,7 @@ router.get("/feed/:username", (req, res) => {
 });
 
 /* May generalise this with a :collection paramter to remove repeated APIs */
-/* Sends comments on photo reference number */
+/* Sends comments on photo of reference number */
 router.get("/comments/:ref", (req, res) => {
 
   req.params.ref = parseInt(req.params.ref);
@@ -122,5 +123,19 @@ router.get("/comments/:ref", (req, res) => {
   });
 
 });
+
+/* Sends user's followers as a list of usernames */
+router.get("/followers/:username", (req, res) => {
+  retrieveDocument("users", { username: req.params.username }, (doc) => {
+    res.send(doc.follower_list);
+  });
+})
+
+/* Sends people followed by users as a list of usernames */
+router.get("/following/:username", (req, res) => {
+  retrieveDocument("users", { username: req.params.username }, (doc) => {
+    res.send(doc.following_list);
+  });
+})
 
 module.exports = router;

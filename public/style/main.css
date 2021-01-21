@@ -289,6 +289,17 @@ button {
   text-align: right;
 }
 
+.page-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.two-column-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
 @media screen and (min-width: 800px) {
   :root {
     font-size: 16px;

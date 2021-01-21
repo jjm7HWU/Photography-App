@@ -59,14 +59,15 @@ function appendPost(container, ref) {
   .then(data => {
     let post = renderPost(data);
     container.innerHTML = container.innerHTML + post;
-  });
 
-  fetch(`${URL}/api/comments/${ref}`)
-  .then(res => res.json())
-  .then(data => {
-    let comments = renderComments(data.comments);
-    let container = getElement("comments-section-"+ref);
-    container.innerHTML = container.innerHTML + comments;
+    fetch(`${URL}/api/comments/${ref}`)
+    .then(res => res.json())
+    .then(data => {
+      let comments = renderComments(data.comments);
+      let container = getElement("comments-section-"+ref);
+      container.innerHTML = container.innerHTML + comments;
+    });
+
   });
 
 }

@@ -18,4 +18,4 @@ window.onload = () => {
     console.log(res);
   });
 
-}
+};

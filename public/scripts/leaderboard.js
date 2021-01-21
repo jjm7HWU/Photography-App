@@ -26,4 +26,4 @@ window.onload = () => {
     renderLeaderboard(getElement("leaderboard-container"), data);
   });
 
-}
+};

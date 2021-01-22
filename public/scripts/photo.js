@@ -8,14 +8,4 @@ window.onload = () => {
   // render post
   appendPost(container, ref);
 
-  let interaction = {
-    sourceUser: "Alfonso",
-    action: "follow",
-    username: "Mitch55"
-  };
-
-  postMethodFetch(interaction, "/interact", res => {
-    console.log(res);
-  });
-
 };

@@ -13,7 +13,10 @@ function renderPost(data) {
         <div class="image-container">
           <img class="post-image" src="https://photography-app-content.s3.amazonaws.com/${data.ref}.${data.type}"/>
           <div class="caption-container">
-            <h3 class="caption">${data.caption}</h3>
+            <div class="caption">
+              <h3>${data.caption}</h3>
+              <h3>${renderHashtags(data.hashtags)}</h3>
+            </div>
           </div>
         </div>
 
@@ -49,6 +52,13 @@ function renderComment(comment) {
       <span><a href="/profile/${comment.poster}"><b>${comment.poster}:</b></a> ${comment.comment}</span>
     </div>
   `;
+}
+
+function renderHashtags(hashtags) {
+  console.log(hashtags);
+  html = hashtags.map(hashtag => `<span class="hashtag"><a href="${URL}/search/query?v=${hashtag}">#${hashtag}</a></span>`);
+  html = html.join(" ");
+  return html;
 }
 
 /* Renders post of reference number inside of container */

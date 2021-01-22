@@ -26,7 +26,7 @@ function performSearch(search, next) {
     // search for hashtags matching (first) term
     retrieveDocument("hashtags", { hashtag: search.terms[0] }, doc => {
 
-      if (doc.posts) {
+      if (doc) {
         results.push({
           type: "post",
           data: doc.posts

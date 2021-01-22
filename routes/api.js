@@ -129,13 +129,13 @@ router.get("/followers/:username", (req, res) => {
   retrieveDocument("users", { username: req.params.username }, (doc) => {
     res.send(doc.follower_list);
   });
-})
+});
 
 /* Sends people followed by users as a list of usernames */
 router.get("/following/:username", (req, res) => {
   retrieveDocument("users", { username: req.params.username }, (doc) => {
     res.send(doc.following_list);
   });
-})
+});
 
 module.exports = router;

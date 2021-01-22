@@ -71,3 +71,10 @@ function appendPost(container, ref) {
   });
 
 }
+
+/* Renders posts from list of reference numbers inside of container */
+function appendPosts(container, refs) {
+  for (let ref of refs) {
+    appendPost(container, ref);
+  }
+}

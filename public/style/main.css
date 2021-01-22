@@ -127,8 +127,8 @@ button {
 
 .icon-button {
   display: block;
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .icon-button img {
@@ -193,7 +193,11 @@ button {
   border: 1px solid var(--color-gray);
   border-radius: 0.2rem;
   height: 2rem;
-  text-indent: 1rem;
+  text-indent: 0.8rem;
+  background-image: url(https://photography-app-content.s3.amazonaws.com/search.svg);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 0.8rem) center;
+  background-size: 1rem 1rem;
 }
 
 .post-container {

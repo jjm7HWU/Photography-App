@@ -1,9 +1,20 @@
 const express = require("express");
 
-const { validateRegistration } = require("../server/validation");
 const { createAccount } = require("../server/write_data");
+const { performSearch } = require("../server/search");
+const { validateRegistration } = require("../server/validation");
 
 const router = express.Router();
+
+router.post("/search", (req, res) => {
+
+  performSearch(req.body, response => {
+
+    res.send(response);
+
+  });
+
+});
 
 /* Handles registration attempts */
 router.post("/register", (req, res) => {

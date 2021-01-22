@@ -8,6 +8,27 @@ function getPageName() {
   return window.location.pathname.split("/").pop();
 }
 
+/* Directs user to search page for query entered in search bar */
+function directToSearchPage() {
+  let value = getElement("search-input").value;
+  let query = joinAsQuery(value);
+  window.location = `${URL}/search/query?v=${query}`;
+}
+
+/* Formats string of text for inclusion in URL query */
+function joinAsQuery(text) {
+  query = text.split(" ").join("+");
+  return query;
+}
+
+/* Directs user to search page if RETURN is pressed */
+/* Only called when search box is being used */
+function checkKeySearch(event) {
+  if (event.keyCode === 13) {
+    directToSearchPage();
+  }
+}
+
 /* Populates element according to JSON data */
 function renderElement(elem, data) {
 

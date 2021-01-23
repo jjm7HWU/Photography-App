@@ -1,3 +1,10 @@
+/* Returns array of all hashtags found in string */
+function extractHashtags(string) {
+  string = replaceAll(string, " ", "")
+  string = replaceAll(string, "#", "")
+  return string.split(",");
+}
+
 /* Returns date (e.g. "Jun 03 2020") */
 function getDate() {
   const date = Date().split(" ");
@@ -62,9 +69,23 @@ function isNumberChar(char) {
   return (48 <= code && code <= 57);
 }
 
+/* TEMP: Returns random reference number */
+function randRef() {
+  return Math.floor(Math.random() * Math.pow(10,20));
+}
+
+/* Returns value of `string` with all occurences of `pattern` replaced with `replacement` */
+/* Courtesy of Eric Wendelin: https://stackoverflow.com/a/494046 */
+function replaceAll(string, pattern, replacement) {
+  const regexp = new RegExp(pattern, "g");
+  return string.replace(regexp, replacement);
+}
+
 module.exports = {
+  extractHashtags,
   getDate,
   isValidEmail,
   isValidUsername,
-  isValidPassword
+  isValidPassword,
+  randRef
 };

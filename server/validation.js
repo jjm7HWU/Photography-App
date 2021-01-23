@@ -2,6 +2,14 @@ const { isValidEmail, isValidUsername, isValidPassword } = require("./standard_l
 const { retrieveDocument } = require("./read_data");
 const { database } = require("../key");
 
+function validatePost(submission) {
+  return (submission.caption
+      &&  submission.poster
+      &&  submission.location
+      &&  submission.hashtags
+  );
+}
+
 /* Validates a user's registration attempt */
 function validateRegistration(submission, next) {
 
@@ -67,4 +75,7 @@ function validateRegistration(submission, next) {
   });
 }
 
-module.exports = { validateRegistration }
+module.exports = {
+  validatePost,
+  validateRegistration
+};

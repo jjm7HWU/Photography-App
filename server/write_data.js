@@ -1,6 +1,6 @@
 const fs = require("fs");
 const s3 = require("../objects/bucket");
-const { getDate } = require("./standard_library");
+const { extractHashtags, getDate, randRef } = require("./standard_library");
 const { database } = require("../key");
 const bcryptjs = require("bcryptjs");
 
@@ -45,10 +45,33 @@ function createNewUser(username) {
 
 }
 
-/* TEMP: Uploads image from file system */
-function uploadImage(imageName) {
+/* Pushes image to S3 bucket and records image entry in photos database */
+function postImage(file, submission) {
 
-  const contents = fs.readFileSync(imageName);
+  // create random ref number and parse hashtags
+  const ref = randRef();
+  const hashtags = extractHashtags(submission.hashtags);
+
+  // new entry for photos database
+  const entry = {
+    ref: ref,
+    caption: submission.caption,
+    poster: submission.poster,
+    hearts: 0,
+    location: submission.location,
+    hashtags: hashtags
+  };
+
+  // save image in S3 bucket and store new entry in photos database
+  pushImageToBucket(file.path, ref.toString());
+  writeDocument(entry, "photos");
+
+}
+
+/* TEMP: Uploads image from file system to S3 bucket */
+function pushImageToBucket(imageLocation, imageName) {
+
+  const contents = fs.readFileSync(imageLocation);
 
   const params = {
     Bucket: "photography-app-content",
@@ -63,4 +86,13 @@ function uploadImage(imageName) {
 
 }
 
-module.exports = { createAccount, uploadImage };
+/* Writes new document to database */
+function writeDocument(doc, collectionName) {
+
+  const collection = database.collection(collectionName);
+
+  collection.insertOne(doc);
+
+}
+
+module.exports = { createAccount, postImage, pushImageToBucket };

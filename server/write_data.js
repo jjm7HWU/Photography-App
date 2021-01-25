@@ -1,5 +1,6 @@
 const fs = require("fs");
 const s3 = require("../objects/bucket");
+const { retrieveDocument } = require("./read_data");
 const { extractHashtags, getDate, randRef } = require("./standard_library");
 const { database } = require("../key");
 const bcryptjs = require("bcryptjs");
@@ -45,8 +46,74 @@ function createNewUser(username) {
 
 }
 
-/* Pushes image to S3 bucket and records image entry in photos database */
-function postImage(file, submission) {
+/*
+**  Adds post to feeds of all of user's followers
+**
+**  @param ref - reference number of post to include in feeds
+**  @param username - username of user whose followers's feeds are to be updated
+*/
+function includeInFollowerFeeds(ref, username) {
+
+  // get user's account
+  retrieveDocument("users", { username }, doc => {
+
+    // iterate through user's followers
+    doc.follower_list.forEach(follower => {
+
+      // and add post to each follower's feed
+      includeInFeed(ref, follower);
+
+    });
+
+  });
+
+}
+
+/*
+**  Adds post to user's feed
+**
+**  @param ref - reference number of post to be included
+**  @param username - username of user whose feed is to be updated
+*/
+function includeInFeed(ref, username) {
+
+  const collection = database.collection("feeds");
+
+  // get user feed add post
+  collection.findOneAndUpdate(
+    { username },
+    { $push: { feed: { type: "post", ref } } }
+  );
+
+}
+
+/*
+**  Adds post to user profile - may be a new post, a shared post, etc.
+**
+**  @param type - feature type. e.g. post, share
+**  @param ref - reference number of post to include
+**  @param username - username of user whose profile is to be updated
+*/
+function includeOnProfile(type, ref, username) {
+
+  const collection = database.collection("activity");
+
+  collection.findOneAndUpdate(
+    { username },
+    { $push: { activity: { type, ref } } }
+  );
+
+}
+
+/*
+**  Pushes image to S3 bucket and records image entry in photos database
+**  Passes ref of newly uploaded photo to next function
+**
+**  @param file - system file of photo to upload
+**  @param submission - entry data for post. e.g. caption, poster, etc.
+**  @param next - function to pass ref of new post to
+*/
+function postImage(file, submission, next) {
 
   // create random ref number and parse hashtags
   const ref = randRef();
@@ -65,6 +132,8 @@ function postImage(file, submission) {
   // save image in S3 bucket and store new entry in photos database
   pushImageToBucket(file.path, ref.toString());
   writeDocument(entry, "photos");
+
+  next(ref);
 
 }
 
@@ -95,4 +164,10 @@ function writeDocument(doc, collectionName) {
 
 }
 
-module.exports = { createAccount, postImage, pushImageToBucket };
+module.exports = {
+  createAccount,
+  includeInFollowerFeeds,
+  includeOnProfile,
+  postImage,
+  pushImageToBucket
+};

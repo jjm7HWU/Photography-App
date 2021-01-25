@@ -29,6 +29,7 @@ app.use((req, res, next) => {
 
 // initialise routes
 app.use("/post", require("./routes/post"));
+app.use("/api_custom", require("./api/api_custom"));
 app.use("/interact", require("./api/interact"));
 app.use("/api", require("./routes/api"));
 app.use("/", require("./routes/view"));

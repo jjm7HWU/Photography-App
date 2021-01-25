@@ -77,39 +77,6 @@ router.get("/leaderboard/global", (req, res) => {
 
 });
 
-/* Sends dummy feed for specified user. Each element is a photo. */
-router.get("/feed/:username", (req, res) => {
-  let posts = [
-    {
-      poster: "Felipe",
-      ref: 1,
-      hearts: 137,
-      comments: 19,
-      location: "Mongolia",
-      caption: "A cute marmot"
-    },
-    {
-      poster: "Hannah",
-      ref: 2,
-      hearts: 121,
-      comments: 6,
-      location: "Shetland, United Kingdom",
-      caption: "This is a puffin that I found"
-    },
-    {
-      poster: "Michael",
-      ref: 3,
-      hearts: 73,
-      comments: 4,
-      location: "Australia",
-      caption: "Koala bear"
-    }
-  ];
-
-  res.send(posts);
-
-});
-
 /* May generalise this with a :collection paramter to remove repeated APIs */
 /* Sends comments on photo of reference number */
 router.get("/comments/:ref", (req, res) => {

@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const multer = require("multer");
 
-const { createAccount, postImage } = require("../server/write_data");
+const { createAccount, includeInFollowerFeeds, includeOnProfile, postImage } = require("../server/write_data");
 const { performSearch } = require("../server/search");
 const { validatePost, validateRegistration } = require("../server/validation");
 
@@ -22,12 +22,29 @@ router.post("/search", (req, res) => {
 });
 
 /* Handles photo upload */
+/* Poster sends post data (image, caption, location, hashtags) and if valid */
+/* then new post is created  */
 router.post("/upload", upload.single("avatar"), (req, res) => {
 
   // if submission is valid then post image to the site
   if (validatePost(req.body)) {
-    postImage(req.file, req.body);
-    res.send({ success: true });
+
+    // post image and pass new post's reference number to next function
+    postImage(req.file, req.body, ref => {
+
+      // add to profile
+      includeOnProfile("post", ref, req.body.poster);
+
+      // place photo in followers's feeds
+      includeInFollowerFeeds(ref, req.body.poster);
+
+      // send poster success message and ref number of new post
+      res.send({
+        success: true,
+        ref
+      });
+
+    });
   }
   // otherwise send error messages
   else {

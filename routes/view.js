@@ -17,4 +17,10 @@ router.get("/:page/:x", (req, res) => {
 
 });
 
+router.get("/:page", (req, res) => {
+
+  res.sendFile(path.join(__dirname, "..", "views", `${req.params.page}.html`));
+
+});
+
 module.exports = router;

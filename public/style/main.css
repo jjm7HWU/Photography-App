@@ -15,6 +15,7 @@
   --color-purple-complement: #c630f0;
   --color-light-gray: #f6f6f6;
   --color-shadow: #ddd;
+  --color-error: #ff8686;
   --bg-color: #f0f0f0;
   --box-bg-color: white;
   --transition-speed: 150ms;
@@ -84,11 +85,17 @@ a {
   display: block;
   width: 100%;
   font-size: 1rem;
-  margin-bottom: 1rem;
   line-height: 2rem;
   text-indent: 0.8rem;
   border: 1px solid var(--color-gray);
   border-radius: 0.2rem;
+}
+
+.form-error {
+  background: var(--color-error);
+  border: 1px solid var(--box-bg-color);
+  text-indent: 0.8rem;
+  width: 100%;
 }
 
 .form label {
@@ -101,7 +108,7 @@ a {
   display: grid;
   grid-template-columns: 2rem 1fr;
   grid-gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .checkbox-container span {

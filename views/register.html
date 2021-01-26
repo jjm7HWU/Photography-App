@@ -25,11 +25,18 @@
       </div>
 
       <div class="form">
+
         <label>Email</label>
         <input type="text" id="email" placeholder="Email address" />
 
+        <div id="email-form-error" class="form-error">
+        </div>
+
         <label>Username</label>
         <input type="text" id="username" placeholder="Username" />
+
+        <div id="username-form-error" class="form-error">
+        </div>
 
         <label>Password</label>
         <input type="password" id="password1" placeholder="Password" />
@@ -37,12 +44,18 @@
         <label>Confirm password</label>
         <input type="password" id="password2" placeholder="Confirm password" />
 
+        <div id="password-form-error" class="form-error">
+        </div>
+
         <div class="checkbox-container">
           <input type="checkbox" id="checkbox" />
           <span for="checkbox">I have read and agree to the Terms of Service and Privacy Policy</span>
         </div>
 
-        <button onclick="submitRegistration()">Register</button>
+        <div id="checkbox-form-error" class="form-error">
+        </div>
+
+        <button class="button" onclick="submitRegistration()" style="margin-top: 1rem">Register</button>
       </div>
 
     </div>

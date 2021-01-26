@@ -1,6 +1,12 @@
 const { database } = require("../key");
 
-/* Retrieves document that matches query */
+/*
+**  Retrieves first document in collection that matches query
+**
+**  @param collectionName - name of collection to search
+**  @param query - search query
+**  @param next - next function call
+*/
 function retrieveDocument(collectionName, query, next) {
 
   const collection = database.collection(collectionName);
@@ -11,4 +17,21 @@ function retrieveDocument(collectionName, query, next) {
 
 }
 
-module.exports = { retrieveDocument };
+/*
+**  Retrieves all documents in collection that matches query
+**
+**  @param collectionName - name of collection to search
+**  @param query - search query
+**  @param next - next function call
+*/
+function retrieveManyDocuments(collectionName, query, next) {
+
+  const collection = database.collection(collectionName);
+
+  const cursor = collection.find(query, {});
+
+  next(cursor);
+
+}
+
+module.exports = { retrieveDocument, retrieveManyDocuments };

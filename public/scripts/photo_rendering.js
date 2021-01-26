@@ -7,7 +7,7 @@ function renderPost(data) {
 
         <div class="post-header">
           <img class="profile-picture" src="https://photography-app-content.s3.amazonaws.com/content/silhouette.svg"/>
-          <h2><a href="${URL}/profile/${data.poster}">${data.poster}</a></h2>
+          <h2><a href="${DOMAIN_NAME}/profile/${data.poster}">${data.poster}</a></h2>
         </div>
 
         <div class="image-container">
@@ -56,7 +56,7 @@ function renderComment(comment) {
 
 function renderHashtags(hashtags) {
   console.log(hashtags);
-  html = hashtags.map(hashtag => `<span class="hashtag"><a href="${URL}/search/query?v=${hashtag}">#${hashtag}</a></span>`);
+  html = hashtags.map(hashtag => `<span class="hashtag"><a href="${DOMAIN_NAME}/search/query?v=${hashtag}">#${hashtag}</a></span>`);
   html = html.join(" ");
   return html;
 }
@@ -64,13 +64,13 @@ function renderHashtags(hashtags) {
 /* Renders post of reference number inside of container */
 function appendPost(container, ref) {
 
-  fetch(`${URL}/api/photo/${ref}`)
+  fetch(`${DOMAIN_NAME}/api/photo/${ref}`)
   .then(res => res.json())
   .then(data => {
     let post = renderPost(data);
     container.innerHTML = container.innerHTML + post;
 
-    fetch(`${URL}/api/comments/${ref}`)
+    fetch(`${DOMAIN_NAME}/api/comments/${ref}`)
     .then(res => res.json())
     .then(data => {
       let comments = renderComments(data.comments);

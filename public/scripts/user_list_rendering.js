@@ -17,7 +17,7 @@ function createUserList(container, data) {
 function populateUserList(list) {
 
   for (let username of list) {
-    fetch(`${URL}/api/user/${username}`)
+    fetch(`${DOMAIN_NAME}/api/user/${username}`)
     .then(res => res.json())
     .then(data => {
       console.log(data);

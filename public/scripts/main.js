@@ -12,7 +12,7 @@ function getPageName() {
 function directToSearchPage() {
   let value = getElement("search-input").value;
   let query = joinAsQuery(value);
-  window.location = `${URL}/search/query?v=${query}`;
+  window.location = `${DOMAIN_NAME}/search/query?v=${query}`;
 }
 
 /* Formats string of text for inclusion in URL query */
@@ -77,9 +77,14 @@ function getElementInContainerById(container, id) {
   return null;
 }
 
-/* Posts data to api at location using the fetch method */
-function postMethodFetch(data, location, next) {
-  fetch(URL + location, {
+/*
+**  Posts data to api at location using the fetch method
+**
+**  @param data - JSON body to be sent via POST method
+**  @param pathname - pathname of api (e.g. /user/Hannah after server domain name)
+*/
+function postMethodFetch(data, pathname, next) {
+  fetch(DOMAIN_NAME + pathname, {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -91,4 +96,4 @@ function postMethodFetch(data, location, next) {
   .then(response => next(response));
 }
 
-const URL = "http://localhost:5000";
+const DOMAIN_NAME = "http://localhost:5000";

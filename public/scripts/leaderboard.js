@@ -3,7 +3,7 @@ function renderLeaderboardSlot(position, data) {
     <div class="box leaderboard-slot">
       <h2 class="right-text">${position}</h2>
       <img class="profile-picture" src="https://photography-app-content.s3.amazonaws.com/content/silhouette.svg"/>
-      <h2><a href="${URL}/profile/${data.username}">${data.username}</a></h2>
+      <h2><a href="${DOMAIN_NAME}/profile/${data.username}">${data.username}</a></h2>
       <h2 class="right-text">${data.points}</h2>
     </div>
   `
@@ -19,7 +19,7 @@ function renderLeaderboard(container, data) {
 window.onload = () => {
 
   // fetch JSON data to populate leaderboard
-  fetch(`${URL}/api/leaderboard/global`)
+  fetch(`${DOMAIN_NAME}/api/leaderboard/global`)
   .then(res => res.json())
   .then(data => {
     console.log(data);

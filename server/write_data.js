@@ -82,7 +82,7 @@ function includeInFeed(ref, username) {
   // get user feed add post
   collection.findOneAndUpdate(
     { username },
-    { $push: { feed: { type: "post", ref } } }
+    { $push: { feed: { type: "post", username: "Alfonso", ref } } }
   );
 
 }

@@ -2,5 +2,3 @@ node_modules/
 package-lock.json
 posts/
 .env
-api_interface.html
-api_interface.js

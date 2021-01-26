@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Playground</title>
+</head>
+
+<body>
+
+  <form class="section" action="http://localhost:5000/post/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="avatar" />
+    <label for="caption">Caption</label>
+    <input type="text" name="caption" value="Lemming challenge now complete?" />
+    <label for="poster">Poster</label>
+    <input type="text" name="poster" value="Alfonso" />
+    <label for="location">Location</label>
+    <input type="text" name="location" value="Dundee, United Kingdom" />
+    <label for="hashtags">hashtags</label>
+    <input type="text" name="hashtags" value="#lemming, #dundee" />
+    <input type="submit" value="Share Photo" />
+  </form>
+
+  <div class="section">
+    <input type="type" id="feed-username" value="Alfonso" />
+    <button onclick="getFeed()" value="Get feed"></button>
+  </div>
+
+</body>
+
+<style>
+
+:root {
+  font-size: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.section {
+  display: block;
+  background: #ddd;
+  width: 50%;
+  margin: auto;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+}
+
+.section * {
+  display: block;
+  width: 80%;
+  height: 1.5rem;
+  margin: auto;
+}
+
+</style>
+
+<script type="text/javascript" src="/api_interface.js"></script>
+
+</html>

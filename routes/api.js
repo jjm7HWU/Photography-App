@@ -50,6 +50,14 @@ router.get("/user/:username", (req, res) => {
 
 });
 
+router.get("/activity/:username", (req, res) => {
+
+    retrieveDocument("activity", { username: req.params.username }, doc => {
+        res.send({ activity: doc.activity });
+    })
+
+});
+
 /* Sends dummy leaderboard information */
 router.get("/leaderboard/global", (req, res) => {
 

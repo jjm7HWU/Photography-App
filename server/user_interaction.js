@@ -13,7 +13,7 @@ function createComment(interaction) {
   const collection = database.collection("comments");
 
   collection.findOneAndUpdate(
-    { ref: 2 },
+    { ref: interaction.photoRef },
     { $push: { comments: comment } }
   );
 

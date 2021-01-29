@@ -22,8 +22,25 @@
   </form>
 
   <div class="section">
-    <input type="type" id="feed-username" value="Alfonso" />
+    <input type="text" id="feed-username" value="Alfonso" />
     <button onclick="getFeed()" value="Get feed"></button>
+  </div>
+
+  <div class="section">
+
+    <h2>/api_custom/notifications</h2>
+
+    <input type="text" id="notifications-username" value="Alfonso" />
+
+    <button onclick="getNotifications()" value="Get notifications"></button>
+
+  </div>
+
+  <div class="section">
+    <input type="type" id="comment-poster" value="Alfonso" />
+    <input type="type" id="comment-comment" value="This is a comment" />
+    <input type="type" id="comment-photoRef" value="2" />
+    <button onclick="postComment()" value="Post Comment"></button>
   </div>
 
 </body>

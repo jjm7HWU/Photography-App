@@ -5,14 +5,18 @@ const { extractHashtags, getDate, randRef } = require("./standard_library");
 const { database } = require("../key");
 const bcryptjs = require("bcryptjs");
 
-/* Creates new user account in accounts database */
+/*
+**  Creates new user account in accounts collection
+**
+**  @param data - object containing username, email, and password of new account
+*/
 function createAccount(data) {
 
   //// hash password ////
   const salt = bcryptjs.genSaltSync(10);
   const hash = bcryptjs.hashSync(data.password1, salt);
 
-  //// record new account in database ////
+  //// record new account in collection ////
   const entry = {
     email: data.email,
     username: data.username,
@@ -28,10 +32,17 @@ function createAccount(data) {
 
 }
 
+/*
+**  Creates new user entry in users database
+**
+**  @param username - username of new user
+*/
 function createNewUser(username) {
 
+  // get users collection
   const collection = database.collection("users");
 
+  // create new entry in collection
   collection.insertOne({
     username,
     country: "",
@@ -120,7 +131,7 @@ function postImage(file, submission, next) {
   const hashtags = extractHashtags(submission.hashtags);
 
   // new entry for photos database
-  const entry = {
+  const photosEntry = {
     ref: ref,
     caption: submission.caption,
     poster: submission.poster,
@@ -129,9 +140,18 @@ function postImage(file, submission, next) {
     hashtags: hashtags
   };
 
+  // new entry for comments database
+  const commentsEntry = {
+    ref: ref,
+    enabled: true,
+    comments: []
+  };
+
   // save image in S3 bucket and store new entry in photos database
   pushImageToBucket(file.path, ref.toString());
-  writeDocument(entry, "photos");
+  writeDocument(photosEntry, "photos");
+  writeDocument(commentsEntry, "comments");
+  recordHashtags(ref, hashtags);
 
   next(ref);
 
@@ -155,12 +175,41 @@ function pushImageToBucket(imageLocation, imageName) {
 
 }
 
-/* Writes new document to database */
+/*
+**  Records hashtags included in post in hashtags database
+**
+**  @param ref - reference number of post with hashtags
+**  @param hashtags - list of hashtags included in post
+*/
+function recordHashtags(ref, hashtags) {
+
+  const collection = database.collection("hashtags");
+
+  hashtags.forEach(hashtag => {
+
+    collection.findOneAndUpdate(
+      { hashtag },
+      { $push: { posts: ref } },
+      { upsert: true }
+    );
+
+  });
+
+}
+
+/*
+**  Writes new document to collection
+**
+**  @param doc - new document to be added to collection
+**  @param collectionName - name of collection to add document to
+*/
 function writeDocument(doc, collectionName) {
 
+  // get collection by name
   const collection = database.collection(collectionName);
 
-  collection.insertOne(doc);
+  // if collection found then add new document
+  if (collection) collection.insertOne(doc);
 
 }
 

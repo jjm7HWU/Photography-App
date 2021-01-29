@@ -34,10 +34,37 @@ function submitImageFile() {
 function getFeed() {
 
   const submission = {
-    username: getElement("feed-username").value
+    sourceUser: getElement("feed-username").value
   };
 
   postMethodFetch(submission, "/api_custom/feed", res => {
+    console.log(res);
+  });
+
+}
+
+function getNotifications() {
+
+  const submission = {
+    sourceUser: getElement("notifications-username").value
+  };
+
+  postMethodFetch(submission, "/api_custom/notifications", res => {
+    console.log(res);
+  });
+
+}
+
+function postComment() {
+
+  const submission = {
+    action: "comment",
+    poster: getElement("comment-poster").value,
+    comment: getElement("comment-comment").value,
+    photoRef: parseInt(getElement("comment-photoRef").value)
+  };
+
+  postMethodFetch(submission, "/interact", res => {
     console.log(res);
   });
 

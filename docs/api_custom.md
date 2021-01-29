@@ -43,3 +43,43 @@ The second is a post with reference number 164 that has been shared by the user 
   ]
 }
 ```
+
+## /api_custom/notifications
+
+The `/api_custom/notifications` API returns the requesting user's notifications. This currently includes notifications for new followers that they have and challenges that they have completed.
+
+#### Fetch Body Format
+
+``` javascript
+{
+  sourceUser: string,   // username of user making request
+  userKey: string       // user's key
+}
+```
+
+#### Response Format
+
+``` javascript
+{
+  success: true,
+  unseen: array,        // list of notifications that they have not yet seen (example below)
+  seen: array           // list of notifications that they have seen (examples below)
+}
+```
+
+#### Response Example
+
+In the following response there is one notification stored in `unseen` that the user has not yet seen which says that the user Alfonso started following them. There are two notifications that the requesting user has already seen which are stored in `seen`. The first is that they completed the challenge with reference number 3 titled "Find a puffin". The second is that the user Mitch55 started following them.
+
+``` javascript
+{
+  success: true,
+  unseen: [
+    { type: "new follower", username: "Alfonso" }
+  ],
+  seen: [
+    { type: "challenge complete", ref: 3, name: "Find a puffin" },
+    { type: "new follower", username: "Mitch55" }
+  ]
+}
+```

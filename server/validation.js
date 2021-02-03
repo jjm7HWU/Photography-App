@@ -2,6 +2,18 @@ const { isValidEmail, isValidUsername, isValidPassword } = require("./standard_l
 const { retrieveDocument } = require("./read_data");
 const { database } = require("../key");
 
+/*
+**  Returns whether or not user exists
+**
+*/
+function userExists(username) {
+
+  retrieveDocument("accounts", { username }, doc => {
+    return (doc) ? true : false;
+  });
+
+}
+
 function validatePost(submission) {
   return (submission.caption
       &&  submission.poster

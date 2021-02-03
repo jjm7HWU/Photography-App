@@ -29,6 +29,11 @@ function followUser(interaction) {
     { $push: { follower_list: interaction.sourceUser } }
   );
 
+  collection.findOneAndUpdate(
+    { username: interaction.sourceUser },
+    { $push: { following_list: interaction.username } }
+  );
+
 }
 
 module.exports = {

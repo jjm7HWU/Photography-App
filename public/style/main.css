@@ -60,8 +60,9 @@ a {
 }
 
 .box {
+  margin: 2rem 0;
   background: var(--box-bg-color);
-  border-radius: 0.6rem;
+  border-radius: 0.1rem;
   box-shadow: 0 0 0.3rem 0.3rem var(--color-shadow);
 }
 

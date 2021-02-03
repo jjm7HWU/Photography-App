@@ -36,6 +36,16 @@
 
   </div>
 
+  <form class="section" action="http://localhost:5000/api_custom/account" method="post" enctype="multipart/form-data">
+    <h2>/api_custom/account</h2>
+    <input type="file" name="avatar" />
+    <label for="location">Username</label>
+    <input type="text" name="username" value="Alfonso" />
+    <label for="location">Location</label>
+    <input type="text" name="location" value="Dundee, United Kingdom" />
+    <input type="submit" value="Submit Account Changes" />
+  </form>
+
   <div class="section">
     <input type="type" id="comment-poster" value="Alfonso" />
     <input type="type" id="comment-comment" value="This is a comment" />

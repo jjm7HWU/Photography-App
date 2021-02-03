@@ -6,9 +6,8 @@ const { createAccount, includeInFollowerFeeds, includeOnProfile, postImage } = r
 const { performSearch } = require("../server/search");
 const { validatePost, validateRegistration } = require("../server/validation");
 
-const upload = multer({ dest: "posts/" });
-
 const router = express.Router();
+const upload = multer({ dest: "posts/" });
 
 /* Handles search queries */
 router.post("/search", (req, res) => {

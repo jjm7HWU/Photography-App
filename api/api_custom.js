@@ -7,9 +7,13 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const multer = require("multer");
+
 const { retrieveDocument } = require("../server/read_data");
+const { pushImageToBucket } = require("../server/write_data");
 
 const router = express.Router();
+const upload = multer({ dest: "posts/" });
 
 /*
 **  Returns user feed
@@ -63,6 +67,21 @@ router.post("/notifications", (req, res) => {
     }
 
   });
+
+});
+
+/*
+**  Submit changes to account
+*/
+router.post("/account", upload.single("avatar"), (req, res) => {
+
+  console.log(req.body);
+
+  if (req.file) {
+    pushImageToBucket(req.file.path, "profile_pictures/"+req.body.username);
+  }
+
+  res.send({ success: true });
 
 });
 

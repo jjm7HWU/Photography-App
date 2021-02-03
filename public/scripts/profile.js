@@ -7,6 +7,8 @@ window.onload = () => {
   getElement("followers-container").href = `/followers/${username}`;
   getElement("following-container").href = `/following/${username}`;
 
+  // getElement("profile-picture").src = `${BUCKET_ADDRESS}/profile_pictures/${username}`;
+
   // fetch JSON data to populate profile header
   fetch(`${DOMAIN_NAME}/api/user/${username}`)
   .then(res => res.json())

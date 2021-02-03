@@ -97,3 +97,4 @@ function postMethodFetch(data, pathname, next) {
 }
 
 const DOMAIN_NAME = "http://localhost:5000";
+const BUCKET_ADDRESS = "https://photography-app-content.s3.amazonaws.com"

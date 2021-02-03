@@ -14,7 +14,9 @@
 }
 
 #bio-container {
+  margin: auto;
   text-align: center;
+  width: 80%;
 }
 
 #joined {

@@ -23,7 +23,7 @@ function renderPost(data) {
         <div class="post-footer">
           <div>
             <button class="icon-button"><img src="https://photography-app-content.s3.amazonaws.com/content/comment.svg"/></button>
-            <h4 class="comments">13</h4>
+            <h4 class="comments">0</h4>
             <button class="icon-button"><img src="https://photography-app-content.s3.amazonaws.com/content/heart.svg"/></button>
             <h4 class="hearts">${data.hearts}</h4>
           </div>

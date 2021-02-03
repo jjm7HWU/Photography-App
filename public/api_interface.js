@@ -17,20 +17,6 @@ function getElement(id) {
   return document.getElementById(id);
 }
 
-function submitImageFile() {
-
-  const fileInput = getElement("image-upload").files;
-
-  console.log(fileInput);
-
-  const submission = fileInput;
-
-  postMethodFetch(submission, "/post/upload", res => {
-    console.log(res);
-  });
-
-}
-
 function getFeed() {
 
   const submission = {

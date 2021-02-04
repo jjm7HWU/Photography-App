@@ -71,12 +71,11 @@ router.post("/notifications", (req, res) => {
 });
 
 /*
-**  Submit changes to account
+**  TODO: Submit changes to account
 */
 router.post("/account", upload.single("avatar"), (req, res) => {
 
-  console.log(req.body);
-
+  // change profile picture
   if (req.file) {
     pushImageToBucket(req.file.path, "profile_pictures/"+req.body.username);
   }

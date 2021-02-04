@@ -215,7 +215,7 @@ button {
 
 .profile-picture {
   float: left;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
   width: 100%;
   margin-top: 0;
 }

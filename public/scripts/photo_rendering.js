@@ -6,7 +6,7 @@ function renderPost(data) {
       <div class="post-container">
 
         <div class="post-header">
-          <img class="profile-picture" src="https://photography-app-content.s3.amazonaws.com/content/silhouette.svg"/>
+          <img class="profile-picture" src="https://photography-app-content.s3.amazonaws.com/profile_pictures/${data.poster}"/>
           <h2><a href="${DOMAIN_NAME}/profile/${data.poster}">${data.poster}</a></h2>
         </div>
 

@@ -22,7 +22,7 @@ Running this app requires `npm` and `node` installed on your machine. You will a
 
 1. Run the app by entering `npm start`.
 
-### Note to marker
+## Note to marker
 
 Check out the following pages to review the app:
 

@@ -1,5 +1,11 @@
 # Photography App
 
+The front end repository can be found at https://github.com/Stuart-McCafferty/Photo-Based-Social-Media-Platform.
+
+The code for our group website can be found at https://github.com/HusainMehdi/Group-12-Website.
+
+The website is hosted at http://husainmehdi.xyz/uni/Group12Website.
+
 ## Deployment
 
 ### Dependencies

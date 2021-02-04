@@ -30,3 +30,5 @@ Check out the following pages to review the app:
 The following page was used to test interact with the server:
 
 * http://localhost:5000/api_interface.html
+
+You should have also received an email from me containing a database key. If not then please email me at jjm7@hw.ac.uk.

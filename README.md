@@ -26,6 +26,7 @@ Running this app requires `npm` and `node` installed on your machine. You will a
 
 Check out the following pages to review the app:
 
+* http://localhost:5000/register
 * http://localhost:5000/profile/Alfonso
 * http://localhost:5000/profile/Hannah
 * http://localhost:5000/profile/Mitch55

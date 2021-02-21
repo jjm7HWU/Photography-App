@@ -11,6 +11,7 @@ const multer = require("multer");
 
 const { retrieveDocument } = require("../server/read_data");
 const { pushImageToBucket } = require("../server/write_data");
+const { database } = require("../key");
 
 const router = express.Router();
 const upload = multer({ dest: "posts/" });
@@ -79,6 +80,14 @@ router.post("/account", upload.single("avatar"), (req, res) => {
   if (req.file) {
     pushImageToBucket(req.file.path, "profile_pictures/"+req.body.username);
   }
+
+  const collection = database.collection("users");
+
+  collection.findOneAndUpdate(
+    { username: req.body.username },
+    { $set: { area: req.body.area, country: req.body.country, bio: req.body.bio } },
+    { upsert: true }
+  );
 
   res.send({ success: true });
 

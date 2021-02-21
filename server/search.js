@@ -58,8 +58,29 @@ function performSearch(search, next) {
           // include user results in list of all results
           results.push(hashtagResults);
 
-          // pass final search results to next function
-          next(results);
+	  terms = [];
+	  search.terms.forEach(term => terms.push({ name: term }));
+	  query = { $or: terms };
+
+	  retrieveManyDocuments("challenges", query, cursor => {
+
+	    let challengeResults = {
+	      type: "challenge",
+	      data: []
+	    };
+
+	    // record every challenge result in challengeResults
+	    cursor.forEach(entry => {
+	      challengeResults.data.push(entry);
+	    })
+	    .then(() => {
+	      results.push(challengeResults);
+	      // pass final search results to next function
+	      next(results);
+	    })
+
+	  })
+
         });
 
       });

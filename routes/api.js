@@ -6,7 +6,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { database } = require("../key");
-const { retrieveDocument } = require("../server/read_data");
+const { retrieveDocument, retrieveManyDocuments } = require("../server/read_data");
 
 const router = express.Router();
 
@@ -110,6 +110,22 @@ router.get("/followers/:username", (req, res) => {
 router.get("/following/:username", (req, res) => {
   retrieveDocument("users", { username: req.params.username }, (doc) => {
     res.send(doc.following_list);
+  });
+});
+
+router.get("/challenges", (req, res) => {
+  let featured = ["Oak", "Ladybug"];
+  let terms = new Array();
+  featured.forEach(name => terms.push({ name }));
+  let query = { $or: terms };
+  let response = new Array();
+  retrieveManyDocuments("challenges", query, cursor => {
+    cursor.forEach(challenge => {
+      response.push(challenge);
+    })
+    .then(() => {
+      res.send(response);
+    });
   });
 });
 

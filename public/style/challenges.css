@@ -1,0 +1,8 @@
+#challenges {
+  display: grid;
+}
+
+.challenge {
+  display: block;
+  height: 20rem;
+}

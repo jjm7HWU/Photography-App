@@ -129,4 +129,13 @@ router.get("/challenges", (req, res) => {
   });
 });
 
+router.get("/pinpoints", (req, res) => {
+  let response = [
+    { type: "photo", ref: "24701358208326510000" },
+    { type: "photo", ref: "45641610956516400000" },
+    { type: "photo", ref: "2" }
+  ];
+  res.send(response);
+});
+
 module.exports = router;

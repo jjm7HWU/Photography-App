@@ -52,7 +52,7 @@ function performSearch(search, next) {
 
         // record every hashtag result in userResults
         cursor.forEach(entry => {
-          hashtagResults.data.push(entry.posts);
+          hashtagResults.data = hashtagResults.data.concat(entry.posts);
         })
         .then(() => {
           // include user results in list of all results

@@ -23,8 +23,24 @@ function createAccount(data) {
     password: hash
   };
 
-  const collection = database.collection("accounts");
-  collection.insertOne(entry);
+  const accounts = database.collection("accounts");
+  accounts.insertOne(entry);
+
+  // TODO: create new key
+  const userkeys = database.collection("userkeys");
+  userkeys.insertOne({ username: data.username, key: "123" });
+
+  // create activity document
+  const activity = database.collection("activity");
+  activity.insertOne({ username: data.username, activity: [] });
+
+  // create notifications document
+  const notifications = database.collection("notifications");
+  notifications.insertOne({ username: data.username, unseen: [], seen: [] });
+
+  // create feed document
+  const feed = database.collection("feeds");
+  feed.insertOne({ username: data.username, feed: [] });
 
   createNewUser(data.username);
 
@@ -51,8 +67,8 @@ function createNewUser(username) {
     bio: "",
     rank: 1,
     points: 0,
-    followers: 0,
-    following: 0
+    follower_list: [],
+    following_list: []
   });
 
 }
@@ -148,7 +164,7 @@ function postImage(file, submission, next) {
   };
 
   // save image in S3 bucket and store new entry in photos database
-  pushImageToBucket(file.path, ref.toString());
+  pushImageToBucket(file.path, "photos/"+ref.toString());
   writeDocument(photosEntry, "photos");
   writeDocument(commentsEntry, "comments");
   recordHashtags(ref, hashtags);

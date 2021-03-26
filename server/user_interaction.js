@@ -21,19 +21,22 @@ function createComment(interaction) {
 
 function followUser(interaction) {
 
+  console.log("followUser");
+  console.log(interaction)
+
   // TODO: create general function
   const collection = database.collection("users");
 
   collection.findOneAndUpdate(
     { username: interaction.username },
-    { $push: { follower_list: interaction.sourceUser } }
+    { $addToSet: { follower_list: interaction.sourceUser } }
   );
 
   collection.findOneAndUpdate(
     { username: interaction.sourceUser },
-    { $push: { following_list: interaction.username } }
+    { $addToSet: { following_list: interaction.username } }
   );
-
+  
 }
 
 module.exports = {

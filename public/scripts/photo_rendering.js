@@ -11,7 +11,7 @@ function renderPost(data) {
         </div>
 
         <div class="image-container">
-          <img class="post-image" src="https://photography-app-content.s3.amazonaws.com/${data.ref}${data.type ? "."+data.type : ""}"/>
+          <img class="post-image" src="https://photography-app-content.s3.amazonaws.com/photos/${data.ref}"/>
           <div class="caption-container">
             <div class="caption">
               <h3>${data.caption}</h3>

@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.post("/", (req, res) => {
 
+  console.log("Interact API");
+
   switch (req.body.action) {
 
     case "follow":

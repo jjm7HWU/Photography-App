@@ -32,7 +32,8 @@ function getFeed() {
 function getNotifications() {
 
   const submission = {
-    sourceUser: getElement("notifications-username").value
+    sourceUser: getElement("notifications-username").value,
+    key: "123"
   };
 
   postMethodFetch(submission, "/api_custom/notifications", res => {

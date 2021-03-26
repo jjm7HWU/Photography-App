@@ -39,12 +39,23 @@ router.get("/photo/:ref", (req, res) => {
 
 });
 
-/* Sends dummy user information */
+/* Sends user information */
 router.get("/user/:username", (req, res) => {
 
   const collection = database.collection("users");
 
   collection.findOne({ "username": req.params.username }).then(entry => {
+    res.send({
+      username: entry.username,
+      area: entry.area,
+      country: entry.country,
+      joindate: entry.joindate,
+      bio: entry.bio,
+      followers: entry.follower_list.length,
+      following: entry.following_list.length,
+      points: entry.points,
+      rank: entry.rank
+    })
     res.send(entry);
   });
 
@@ -52,9 +63,12 @@ router.get("/user/:username", (req, res) => {
 
 router.get("/activity/:username", (req, res) => {
 
-    retrieveDocument("activity", { username: req.params.username }, doc => {
-        res.send({ activity: doc.activity });
-    })
+  console.log("API GET: /activity/:username");
+  console.log(req.params.username);
+
+  retrieveDocument("activity", { username: req.params.username }, doc => {
+    if (doc) res.send({ activity: doc.activity });
+  })
 
 });
 

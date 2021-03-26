@@ -9,6 +9,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 
+const { keyBelongsToUser } = require("../server/authorization");
 const { retrieveDocument } = require("../server/read_data");
 const { pushImageToBucket } = require("../server/write_data");
 const { database } = require("../key");
@@ -48,24 +49,36 @@ router.post("/feed", (req, res) => {
 */
 router.post("/notifications", (req, res) => {
 
+  console.log("/notifications");
+  console.log(req.body);
+
   // get username of user making request
   const username = req.body.sourceUser;
 
-  // search for user's notifications
-  retrieveDocument("notifications", { username }, doc => {
+  keyBelongsToUser(req.body.key, username, (authorized) => {
 
-    // if found send notifications to user
-    if (doc) {
-      res.send({
-        success: true,
-        unseen: doc.unseen,
-        seen: doc.seen
-      });
+    if (!authorized) {
+      res.send({ success: false, reason: "Access denied" });
+      return;
     }
-    // otherwise, send unsuccessful message
-    else {
-      res.send({ success: false });
-    }
+
+    // search for user's notifications
+    retrieveDocument("notifications", { username }, doc => {
+
+      // if found send notifications to user
+      if (doc) {
+	res.send({
+	  success: true,
+	  unseen: doc.unseen,
+	  seen: doc.seen
+	});
+      }
+      // otherwise, send unsuccessful message
+      else {
+	res.send({ success: false });
+      }
+
+    });
 
   });
 
@@ -75,6 +88,9 @@ router.post("/notifications", (req, res) => {
 **  TODO: Submit changes to account
 */
 router.post("/account", upload.single("avatar"), (req, res) => {
+
+  console.log("/account");
+  console.log(req.body);
 
   // change profile picture
   if (req.file) {

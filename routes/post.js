@@ -55,6 +55,8 @@ router.post("/upload", upload.single("avatar"), (req, res) => {
 /* Handles registration attempts */
 router.post("/register", (req, res) => {
 
+  console.log("API POST: /register")
+
   // if registration details are valid then create account
   validateRegistration(req.body, response => {
 
@@ -63,6 +65,16 @@ router.post("/register", (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.send(response);
   });
+
+});
+
+router.post("/sign-in", (req, res) => {
+
+  const response = { message: "To be implemented" };
+
+  // if registration details are valid then create account
+  res.header("Access-Control-Allow-Origin", "*");
+  res.send(response);
 
 });
 

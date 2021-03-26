@@ -9,9 +9,9 @@ const { database } = require("../key");
 */
 function retrieveDocument(collectionName, query, next) {
 
-  const collection = database.collection(collectionName);
+  const c = database.collection(collectionName);
 
-  collection.findOne(query).then(doc => {
+  c.findOne(query).then(doc => {
     next(doc);
   });
 

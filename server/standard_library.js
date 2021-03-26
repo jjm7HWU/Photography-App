@@ -23,7 +23,7 @@ function isValidEmail(email) {
 /* Determines whether username is valid */
 function isValidUsername(username) {
 
-  if (username.length > 24) return false;
+  if (username.length === 0 || username.length > 24) return false;
 
   for (let char of username) {
     if (!isValidUsernameChar(char)) return false;

@@ -2,9 +2,11 @@ const express = require("express");
 const fs = require("fs");
 const multer = require("multer");
 
-const { createAccount, includeInFollowerFeeds, includeOnProfile, postImage } = require("../server/write_data");
+const { createAccount, includeInFollowerFeeds, includeOnProfile, postImage, writeUserKey } = require("../server/write_data");
 const { performSearch } = require("../server/search");
-const { validatePost, validateRegistration } = require("../server/validation");
+const { randRef } = require("../server/standard_library");
+const { validatePost, validateRegistration, validateSignIn } = require("../server/validation");
+const { database } = require("../key");
 
 const router = express.Router();
 const upload = multer({ dest: "posts/" });
@@ -70,11 +72,21 @@ router.post("/register", (req, res) => {
 
 router.post("/sign-in", (req, res) => {
 
-  const response = { message: "To be implemented" };
+  const collection = database.collection("userkeys");
 
-  // if registration details are valid then create account
-  res.header("Access-Control-Allow-Origin", "*");
-  res.send(response);
+  validateSignIn(req.body, response => {
+
+    if (response.valid) {
+      const key = randRef();
+      response.key = key;
+      writeUserKey(response.username, key);
+    }
+
+    // if registration details are valid then create account
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send(response);
+
+  })
 
 });
 

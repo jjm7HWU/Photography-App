@@ -87,7 +87,31 @@ function validateRegistration(submission, next) {
   });
 }
 
+function validateSignIn(submission, next) {
+
+  let response = {
+    valid: true
+  };
+
+  retrieveDocument("accounts", { email: submission.email }, entry => {
+    
+    if (!entry) {
+      response.valid = false;
+      response.message = "E-mail or password is incorrect";
+      next(response);
+      return;
+    }
+
+    response.username = entry.username;
+
+    next(response);
+
+  });
+
+}
+
 module.exports = {
   validatePost,
-  validateRegistration
+  validateRegistration,
+  validateSignIn
 };

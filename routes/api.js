@@ -27,15 +27,40 @@ function getUser(username) {
 }
 
 /* Sends information for photo of specified reference number */
-router.get("/photo/:ref", (req, res) => {
+router.get("/photo/:refs", (req, res) => {
 
-  req.params.ref = parseInt(req.params.ref);
+  console.log("API GET: /photo/:refs");
+  console.log(req.params.refs);
 
-  const collection = database.collection("photos");
+  let refs = req.params.refs.split("+");
+  refs = refs.map(ref => parseInt(ref));
 
-  collection.findOne({ "ref": req.params.ref }).then(entry => {
-    res.send(entry);
-  });
+  // create query to get all photos by reference number
+  let terms = [];
+  refs.forEach(term => terms.push({ ref: term }));
+  let query = { $or: terms };
+
+  retrieveManyDocuments("photos", query, cursor => {
+
+    let posts = new Array();
+
+    cursor.forEach(entry => {
+      posts.push({
+	ref: entry.ref,
+	caption: entry.caption,
+	poster: entry.poster,
+	hearts: entry.heartsUsers.length,
+	comments: entry.commentsUsers.length,
+	location: entry.location,
+	hashtags: entry.hashtags
+      });
+    })
+    .then(() => {
+      res.send(posts);
+    });
+
+  })
+  
 
 });
 
@@ -55,8 +80,7 @@ router.get("/user/:username", (req, res) => {
       following: entry.following_list.length,
       points: entry.points,
       rank: entry.rank
-    })
-    res.send(entry);
+    });
   });
 
 });
@@ -105,18 +129,24 @@ router.get("/comments/:ref", (req, res) => {
 
   req.params.ref = parseInt(req.params.ref);
 
-  const collection = database.collection("comments");
+  const collection = database.collection("photos");
 
   collection.findOne({ "ref": req.params.ref }).then(entry => {
-    res.send(entry);
+    res.send({
+      enabled: true,
+      comments: commentsUsers
+    });
   });
 
 });
 
 /* Sends user's followers as a list of usernames */
 router.get("/followers/:username", (req, res) => {
+  console.log("API GET: /followers/:username");
+  console.log(req.params.username);
   retrieveDocument("users", { username: req.params.username }, (doc) => {
-    res.send(doc.follower_list);
+    if (doc) res.send(doc.follower_list);
+    else res.send({ message: "No user found" });
   });
 });
 

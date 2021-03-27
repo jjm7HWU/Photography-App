@@ -109,7 +109,18 @@ function includeInFeed(ref, username) {
   // get user feed add post
   collection.findOneAndUpdate(
     { username },
-    { $push: { feed: { type: "post", username: "Alfonso", ref } } }
+    { $push: { feed: { type: "post", ref } } }
+  );
+
+}
+
+function notifyUser(username, notification) {
+
+  const collection = database.collection("notifications");
+
+  collection.findOneAndUpdate(
+    { username },
+    { $push: { unseen: notification } }
   );
 
 }
@@ -152,8 +163,11 @@ function postImage(file, submission, next) {
     caption: submission.caption,
     poster: submission.poster,
     hearts: 0,
+    comments: 0,
     location: submission.location,
-    hashtags: hashtags
+    hashtags: hashtags,
+    heartsUsers: [],
+    commentsUsers: []
   };
 
   // new entry for comments database
@@ -229,10 +243,16 @@ function writeDocument(doc, collectionName) {
 
 }
 
+function writeUserKey(username, key) {
+  database.collection("userkeys").findOneAndUpdate({ username }, { $set: { key } });
+}
+
 module.exports = {
   createAccount,
   includeInFollowerFeeds,
   includeOnProfile,
+  notifyUser,
   postImage,
-  pushImageToBucket
+  pushImageToBucket,
+  writeUserKey
 };

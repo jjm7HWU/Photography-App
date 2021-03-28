@@ -51,6 +51,7 @@ router.get("/photo/:refs", (req, res) => {
 	poster: entry.poster,
 	hearts: entry.heartsUsers.length,
 	comments: entry.commentsUsers.length,
+	commentsArray: entry.commentsUsers,
 	location: entry.location,
 	hashtags: entry.hashtags
       });
@@ -70,6 +71,9 @@ router.get("/user/:username", (req, res) => {
   const collection = database.collection("users");
 
   collection.findOne({ "username": req.params.username }).then(entry => {
+
+    if (!entry) return;
+
     res.send({
       username: entry.username,
       area: entry.area,

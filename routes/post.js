@@ -80,7 +80,10 @@ router.post("/sign-in", (req, res) => {
       const key = randRef();
       response.key = key;
       writeUserKey(response.username, key);
+      console.log("SUCCESSFUL LOGIN");
     }
+
+    console.log("UNSUCCESSFUL LOGIN");
 
     // if registration details are valid then create account
     res.header("Access-Control-Allow-Origin", "*");

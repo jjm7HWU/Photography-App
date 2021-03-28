@@ -67,7 +67,7 @@ function appendPost(container, ref) {
   fetch(`${DOMAIN_NAME}/api/photo/${ref}`)
   .then(res => res.json())
   .then(data => {
-    let post = renderPost(data);
+    let post = renderPost(data[0]);
     container.innerHTML = container.innerHTML + post;
 
     fetch(`${DOMAIN_NAME}/api/comments/${ref}`)

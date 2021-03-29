@@ -27,6 +27,9 @@ router.post("/search", (req, res) => {
 /* then new post is created  */
 router.post("/upload", upload.single("avatar"), (req, res) => {
 
+  console.log("API POST: /post/upload");
+  console.log(req.body);
+
   // if submission is valid then post image to the site
   if (validatePost(req.body)) {
 

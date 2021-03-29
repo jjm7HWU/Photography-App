@@ -29,6 +29,40 @@ function getFeed() {
 
 }
 
+function getChallenges() {
+
+  const submission = {
+    sourceUser: getElement("challenges-username").value,
+    key: "123"
+  };
+
+  postMethodFetch(submission, "/api_custom/challenges", res => {
+    console.log(res);
+  });
+
+}
+
+function submitTask() {
+
+  console.log("click");
+
+  const submission = {
+    sourceUser: getElement("submit-task-username").value,
+    ref: parseInt(getElement("submit-task-ref").value),
+    challengeID: parseInt(getElement("submit-task-challenge-id").value),
+    taskIndex: parseInt(getElement("submit-task-task-index").value)
+  };
+
+  console.log(submission);
+
+
+  postMethodFetch(submission, "/api_custom/submit-task", res => {
+    console.log(res);
+  });
+
+}
+
+
 function getNotifications() {
 
   const submission = {

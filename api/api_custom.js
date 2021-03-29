@@ -11,7 +11,7 @@ const multer = require("multer");
 
 const { keyBelongsToUser } = require("../server/authorization");
 const { retrieveDocument, retrieveManyDocuments } = require("../server/read_data");
-const { pushImageToBucket } = require("../server/write_data");
+const { pushImageToBucket, submitTask } = require("../server/write_data");
 const { database } = require("../key");
 
 const router = express.Router();
@@ -93,6 +93,15 @@ router.post("/challenges", (req, res) => {
     cursor.forEach(entry => challenges.push(entry))
     .then(() => res.send({ label: "challenges", challenges }))
   })
+
+});
+
+router.post("/submit-task", (req, res) => {
+
+  console.log("API POST: /submit-task");
+  console.log(req.body);
+
+  submitTask(req.body, response => res.send(response));
 
 });
 

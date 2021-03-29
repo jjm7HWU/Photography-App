@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 
 const { keyBelongsToUser } = require("../server/authorization");
-const { retrieveDocument } = require("../server/read_data");
+const { retrieveDocument, retrieveManyDocuments } = require("../server/read_data");
 const { pushImageToBucket } = require("../server/write_data");
 const { database } = require("../key");
 
@@ -81,6 +81,18 @@ router.post("/notifications", (req, res) => {
     });
 
   });
+
+});
+
+router.post("/challenges", (req, res) => {
+  console.log("API POST: /challenges");
+  console.log(req.body);
+
+  retrieveManyDocuments("challenges", {}, cursor => {
+    let challenges = new Array();
+    cursor.forEach(entry => challenges.push(entry))
+    .then(() => res.send({ label: "challenges", challenges }))
+  })
 
 });
 

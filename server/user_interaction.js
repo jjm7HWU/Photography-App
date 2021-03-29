@@ -23,7 +23,7 @@ function createComment(interaction, next) {
     { $push: { commentsUsers: comment } }
   );
 
-  next({ success: true });
+  next({ success: true, comment });
 
 }
 
@@ -60,12 +60,26 @@ function heartPost(interaction, next) {
 
   const collection = database.collection("photos");
 
-  collection.findOneAndUpdate(
-    { ref: interaction.ref },
-    { $addToSet: { heartsUsers: interaction.sourceUser } }
-  );
+  if (interaction.value) {
 
-  next({ success: true });
+    collection.findOneAndUpdate(
+      { ref: interaction.ref },
+      { $addToSet: { heartsUsers: interaction.sourceUser } }
+    );
+
+    next({ hearted: true });
+
+  }
+  else {
+
+    collection.findOneAndUpdate(
+      { ref: interaction.ref },
+      { $pull: { heartsUsers: interaction.sourceUser } }
+    );
+
+    next({ hearted: false });
+
+  }
 
 }
 

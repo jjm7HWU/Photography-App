@@ -53,7 +53,8 @@ router.get("/photo/:refs", (req, res) => {
 	comments: entry.commentsUsers.length,
 	commentsArray: entry.commentsUsers,
 	location: entry.location,
-	hashtags: entry.hashtags
+	hashtags: entry.hashtags,
+	hearted: (req.query.username && entry.heartsUsers.includes(req.query.username))
       });
     })
     .then(() => {

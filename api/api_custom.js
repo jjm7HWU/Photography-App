@@ -22,6 +22,9 @@ const upload = multer({ dest: "posts/" });
 */
 router.post("/feed", (req, res) => {
 
+  console.log("API POST: /feed");
+  console.log(req.body);
+
   // get username of user making request
   const username = req.body.sourceUser;
 
@@ -30,9 +33,19 @@ router.post("/feed", (req, res) => {
 
     // if found send feed to user
     if (doc) {
-      res.send({
-        success: true,
-        feed: doc.feed
+      retrieveDocument("challenge_submissions", {}, challenge => {
+	if (challenge) {
+	  challenge = {
+	    type: "review",
+	    question: "Is this question lying?",
+	    ref: challenge.ref
+	  }
+	  doc.feed.push(challenge);
+	}
+	res.send({
+	  success: true,
+	  feed: doc.feed
+	});
       });
     }
     // otherwise, send unsuccessful message

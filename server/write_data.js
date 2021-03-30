@@ -89,10 +89,7 @@ function submitTask(submission, next) {
 	      dunno: 0
 	    };
 
-	    database.collection("challenge_submissions").findOneAndUpdate(
-	      { username },
-	      { $push: { started: submission } }
-	    );
+	    database.collection("challenge_submissions").insertOne(submission);
 
 	    next({ success: true, message: "Attempt submitted!" });
 

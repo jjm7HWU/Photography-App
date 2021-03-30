@@ -10,8 +10,9 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 
 const { keyBelongsToUser } = require("../server/authorization");
+const { evaluateTaskSubmission, submitTask } = require("../server/challenges");
 const { retrieveDocument, retrieveManyDocuments } = require("../server/read_data");
-const { pushImageToBucket, submitTask } = require("../server/write_data");
+const { pushImageToBucket } = require("../server/write_data");
 const { database } = require("../key");
 
 const router = express.Router();
@@ -33,7 +34,7 @@ router.post("/feed", (req, res) => {
 
     // if found send feed to user
     if (doc) {
-      retrieveDocument("challenge_submissions", {}, challenge => {
+      retrieveDocument("task_submissions", {}, challenge => {
 	if (challenge.username !== username) {
 	  challenge = {
 	    type: "review",
@@ -115,6 +116,15 @@ router.post("/submit-task", (req, res) => {
   console.log(req.body);
 
   submitTask(req.body, response => res.send(response));
+
+});
+
+router.post("/evaluate-task-submission", (req, res) => {
+  
+  console.log("API POST: /evaluate-task-submission");
+  console.log(req.body);
+
+  evaluateTaskSubmission(req.body, response => res.send(response));
 
 });
 

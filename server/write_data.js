@@ -42,6 +42,10 @@ function createAccount(data) {
   const feed = database.collection("feeds");
   feed.insertOne({ username: data.username, feed: [] });
 
+  // create tasks document
+  const tasks = database.collection("user_tasks");
+  tasks.insertOne({ username: data.username, started: [], completed: [] });
+
   // create challenges document
   const challenges = database.collection("user_challenges");
   challenges.insertOne({ username: data.username, started: [], completed: [] });
@@ -49,65 +53,6 @@ function createAccount(data) {
   createNewUser(data.username);
 
   console.log("New account registered: " + entry.username);
-
-}
-
-function submitTask(submission, next) {
-
-  const username = submission.sourceUser;
-  const ref = submission.ref;
-  const challengeID = submission.challengeID;
-  const taskIndex = submission.taskIndex;
-
-  retrieveDocument("user_challenges", { username }, doc => {
-
-    if (doc) {
-
-      if (doc.started.findIndex(e => (e.username === username && e.challengeID === challengeID && e.taskIndex === taskIndex)) === -1 && doc.completed.findIndex(e => (e.username === username && e.challengeID === challengeID && e.taskIndex === taskIndex)) === -1) {
-
-	retrieveDocument("challenges", { id: challengeID }, challenge => {
-
-	  if (challenge && taskIndex < challenge.tasks.length) {
-
-	    let submission = {
-	      username,
-	      ref,
-	      challengeID,
-	      taskIndex
-	    };
-
-	    database.collection("user_challenges").findOneAndUpdate(
-	      { username },
-	      { $push: { started: submission } }
-	    );
-
-	    submission = {
-	      ...submission,
-	      question: challenge.question,
-	      yes: 0,
-	      no: 0,
-	      dunno: 0
-	    };
-
-	    database.collection("challenge_submissions").insertOne(submission);
-
-	    next({ success: true, message: "Attempt submitted!" });
-
-	  }
-	  else {
-	    next({ success: false, message: "This task does not exist" });
-	  }
-	});
-      }
-      else {
-	next({ success: false, message: "This challenge has already been started or completed" });
-      }
-    }
-    else {
-      next({ success: false, message: "Cannot find challenge" });
-    }
-
-  });
 
 }
 
@@ -317,6 +262,5 @@ module.exports = {
   notifyUser,
   postImage,
   pushImageToBucket,
-  submitTask,
   writeUserKey
 };

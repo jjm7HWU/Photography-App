@@ -62,6 +62,27 @@ function submitTask() {
 
 }
 
+function evaluateTaskSubmission() {
+
+  const submission = {
+    sourceUser: getElement("evaluate-task-source-user").value,
+    username: getElement("evaluate-task-username").value,
+    ref: parseInt(getElement("evaluate-task-ref").value),
+    challengeID: parseInt(getElement("evaluate-task-challenge-id").value),
+    taskIndex: parseInt(getElement("evaluate-task-task-index").value),
+    verdict: getElement("evaluate-task-verdict").value
+  };
+
+  console.log(submission);
+
+
+  postMethodFetch(submission, "/api_custom/evaluate-task-submission", res => {
+    console.log(res);
+  });
+
+}
+
+
 
 function getNotifications() {
 

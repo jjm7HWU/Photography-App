@@ -113,27 +113,24 @@ router.get("/activity/:username", (req, res) => {
 /* Sends dummy leaderboard information */
 router.get("/leaderboard/global", (req, res) => {
 
-  let leaderboardNames = [
-    "Eva", "Hans", "Maria", "Leah", "Felipe",
-    "Yusuf", "Luis", "Claire", "Mia", "Siddhartha",
-    "Lucas", "Mikaila", "Roseanna", "Jean", "Lee"
-  ];
+  retrieveManyDocuments("leaderboard", {}, cursor => {
 
-  let leaderboard = new Array();
+    let leaderboard = new Array();
 
-  leaderboardNames.forEach((username, position) => {
-    let user = getUser(username);
-    let entry = {
-      username: username,
-      position: position,
-      rank: 100,
-      points: 2325 + Math.pow(5-position, 3),
-      country: user.country
-    }
-    leaderboard.push(entry);
+    cursor.forEach((item, position) => {
+      let entry = {
+	username: item.username,
+	position: item.position,
+	points: item.points
+      };
+      console.log(entry)
+      leaderboard.push(entry);
+    })
+    .then(() => {
+      res.send(leaderboard);
+    });
+
   });
-
-  res.send(leaderboard);
 
 });
 

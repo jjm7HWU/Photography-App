@@ -34,7 +34,7 @@ router.post("/feed", (req, res) => {
     // if found send feed to user
     if (doc) {
       retrieveDocument("challenge_submissions", {}, challenge => {
-	if (challenge) {
+	if (challenge.username !== username) {
 	  challenge = {
 	    type: "review",
 	    question: "Is this question lying?",

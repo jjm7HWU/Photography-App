@@ -31,7 +31,7 @@ function validateRegistration(submission, next) {
     messages: {}
   };
 
-  //// insure form data has been submitted as text ////
+  //// ensure form data has been submitted as text ////
   submission.email = submission.email.toString();
   submission.username = submission.username.toString();
   submission.password1 = submission.password1.toString();

@@ -73,19 +73,27 @@ router.get("/user/:username", (req, res) => {
 
   collection.findOne({ "username": req.params.username }).then(entry => {
 
-    if (!entry) return;
+    let response;
 
-    res.send({
-      username: entry.username,
-      area: entry.area,
-      country: entry.country,
-      joindate: entry.joindate,
-      bio: entry.bio,
-      followers: entry.follower_list.length,
-      following: entry.following_list.length,
-      points: entry.points,
-      rank: entry.rank
-    });
+    if (entry) {
+      response = {
+	username: entry.username,
+	area: entry.area,
+	country: entry.country,
+	joindate: entry.joindate,
+	bio: entry.bio,
+	followers: entry.follower_list.length,
+	following: entry.following_list.length,
+	points: entry.points,
+	rank: entry.rank
+      };
+    }
+    else {
+      response = { success: false, message: "cannot find user " + req.params.username };
+    }
+
+    res.send(response);
+
   });
 
 });

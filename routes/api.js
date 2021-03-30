@@ -85,7 +85,8 @@ router.get("/user/:username", (req, res) => {
 	followers: entry.follower_list.length,
 	following: entry.following_list.length,
 	points: entry.points,
-	rank: entry.rank
+	rank: entry.rank,
+	isFollowing: (req.query.username && entry.follower_list.includes(req.query.username))
       };
     }
     else {

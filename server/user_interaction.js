@@ -35,22 +35,41 @@ function followUser(interaction, next) {
   // TODO: create general function
   const collection = database.collection("users");
 
-  collection.findOneAndUpdate(
-    { username: interaction.username },
-    { $addToSet: { follower_list: interaction.sourceUser } }
-  );
+  if (interaction.value) {
 
-  collection.findOneAndUpdate(
-    { username: interaction.sourceUser },
-    { $addToSet: { following_list: interaction.username } }
-  );
+    collection.findOneAndUpdate(
+      { username: interaction.username },
+      { $addToSet: { follower_list: interaction.sourceUser } }
+    );
 
-  notifyUser(interaction.username, {
-    type: "new_follower",
-    username: interaction.sourceUser
-  });
+    collection.findOneAndUpdate(
+      { username: interaction.sourceUser },
+      { $addToSet: { following_list: interaction.username } }
+    );
 
-  next({ success: true });
+    notifyUser(interaction.username, {
+      type: "new_follower",
+      username: interaction.sourceUser
+    });
+
+    next({ success: true, value: true });
+
+  }
+  else {
+
+    collection.findOneAndUpdate(
+      { username: interaction.sourceUser },
+      { $pull: { following_list: interaction.username } }
+    );
+
+    collection.findOneAndUpdate(
+      { username: interaction.username },
+      { $pull: { follower_list: interaction.sourceUser } }
+    );
+
+    next({ success: true, value: false });
+
+  }
   
 }
 

@@ -4,6 +4,7 @@ const path = require("path");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const base64ToFile = require("base64-to-file");
 
 const app = express();
 const server = http.createServer(app);

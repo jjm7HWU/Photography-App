@@ -41,7 +41,7 @@ class ChunkHandler {
       let string = upload.chunks.join("");
       string = string.substring(0,string.length-1);
       let postData = this.postsData[username];
-      uploadBase64Image(string, postData);
+      uploadBase64Image(string, postData, response => console.log(response));
     }
 
     next(response);

@@ -31,7 +31,7 @@ router.post("/upload", upload.single("avatar"), (req, res) => {
   console.log("API POST: /post/upload");
   console.log(req.body);
 
-  handleUpload(req.body.caption, req.body.poster, req.body.location, req.body.hashtags, req.file.path);
+  handleUpload(req.body, req.file.path, response => res.send(response));
 
 });
 

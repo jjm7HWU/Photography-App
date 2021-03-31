@@ -2,8 +2,10 @@ const fs = require("fs");
 const s3 = require("../objects/bucket");
 const { retrieveDocument } = require("./read_data");
 const { extractHashtags, getDate, randRef } = require("./standard_library");
+const { validatePost } = require("./validation");
 const { database } = require("../key");
 const bcryptjs = require("bcryptjs");
+const base64ToFile = require("base64-to-file");
 
 /*
 **  Creates new user account in accounts collection
@@ -151,9 +153,9 @@ function includeOnProfile(type, ref, username) {
 
 }
 
-function handleUpload(caption, poster, location, hashtags, filePath) {
+function handleUpload(body, filePath, next) {
 
-  const body = { caption, poster, location, hashtags };
+  let response;
 
   // if submission is valid then post image to the site
   if (validatePost(body)) {
@@ -161,29 +163,33 @@ function handleUpload(caption, poster, location, hashtags, filePath) {
     // post image and pass new post's reference number to next function
     postImage(filePath, body, ref => {
 
+      console.log("New post: " + ref);
+
       // add to profile
-      includeOnProfile("post", ref, req.body.poster);
+      includeOnProfile("post", ref, body.poster);
 
       // place photo in followers's feeds
-      includeInFollowerFeeds(ref, req.body.poster);
+      includeInFollowerFeeds(ref, body.poster);
 
       // send poster success message and ref number of new post
-      res.send({
+      response = {
         success: true,
         ref
-      });
+      };
 
     });
   }
   // otherwise send error messages
   else {
     // TODO
-    res.send({ success: false });
+    response = { success: false };
   }
+
+  next(response);
 
 }
 
-function uploadBase64Image(image, postData) {
+function uploadBase64Image(image, postData, next) {
 
   console.log("UPLOADING BASE 64 IMAGE");
   console.log(image);
@@ -191,7 +197,10 @@ function uploadBase64Image(image, postData) {
   console.log("...");
   console.log(image.substring(image.length-100,image.length));
 
-  console.log(postData);
+  base64ToFile.convert(image,"posts/",["jpg","jpeg","png"], function (filePath) {
+    console.log(filePath);
+    handleUpload(postData, filePath, next);
+  });
 
 }
 

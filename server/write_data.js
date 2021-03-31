@@ -151,6 +151,50 @@ function includeOnProfile(type, ref, username) {
 
 }
 
+function handleUpload(caption, poster, location, hashtags, filePath) {
+
+  const body = { caption, poster, location, hashtags };
+
+  // if submission is valid then post image to the site
+  if (validatePost(body)) {
+
+    // post image and pass new post's reference number to next function
+    postImage(filePath, body, ref => {
+
+      // add to profile
+      includeOnProfile("post", ref, req.body.poster);
+
+      // place photo in followers's feeds
+      includeInFollowerFeeds(ref, req.body.poster);
+
+      // send poster success message and ref number of new post
+      res.send({
+        success: true,
+        ref
+      });
+
+    });
+  }
+  // otherwise send error messages
+  else {
+    // TODO
+    res.send({ success: false });
+  }
+
+}
+
+function uploadBase64Image(image, postData) {
+
+  console.log("UPLOADING BASE 64 IMAGE");
+  console.log(image);
+  console.log(image.substring(0,100));
+  console.log("...");
+  console.log(image.substring(image.length-100,image.length));
+
+  console.log(postData);
+
+}
+
 /*
 **  Pushes image to S3 bucket and records image entry in photos database
 **  Passes ref of newly uploaded photo to next function
@@ -159,7 +203,7 @@ function includeOnProfile(type, ref, username) {
 **  @param submission - entry data for post. e.g. caption, poster, etc.
 **  @param next - function to pass ref of new post to
 */
-function postImage(file, submission, next) {
+function postImage(path, submission, next) {
 
   // create random ref number and parse hashtags
   const ref = randRef();
@@ -186,7 +230,7 @@ function postImage(file, submission, next) {
   };
 
   // save image in S3 bucket and store new entry in photos database
-  pushImageToBucket(file.path, "photos/"+ref.toString());
+  pushImageToBucket(path, "photos/"+ref.toString());
   writeDocument(photosEntry, "photos");
   writeDocument(commentsEntry, "comments");
   recordHashtags(ref, hashtags);
@@ -257,10 +301,12 @@ function writeUserKey(username, key) {
 
 module.exports = {
   createAccount,
+  handleUpload,
   includeInFollowerFeeds,
   includeOnProfile,
   notifyUser,
   postImage,
   pushImageToBucket,
+  uploadBase64Image,
   writeUserKey
 };

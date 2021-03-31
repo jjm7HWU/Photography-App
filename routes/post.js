@@ -2,11 +2,12 @@ const express = require("express");
 const fs = require("fs");
 const multer = require("multer");
 
-const { createAccount, includeInFollowerFeeds, includeOnProfile, postImage, writeUserKey } = require("../server/write_data");
+const { createAccount, includeInFollowerFeeds, handleUpload, includeOnProfile, writeUserKey } = require("../server/write_data");
 const { performSearch } = require("../server/search");
 const { randRef } = require("../server/standard_library");
 const { validatePost, validateRegistration, validateSignIn } = require("../server/validation");
 const { database } = require("../key");
+const chunkHandler = require("../objects/chunkHandler");
 
 const router = express.Router();
 const upload = multer({ dest: "posts/" });
@@ -30,31 +31,8 @@ router.post("/upload", upload.single("avatar"), (req, res) => {
   console.log("API POST: /post/upload");
   console.log(req.body);
 
-  // if submission is valid then post image to the site
-  if (validatePost(req.body)) {
+  handleUpload(req.body.caption, req.body.poster, req.body.location, req.body.hashtags, req.file.path);
 
-    // post image and pass new post's reference number to next function
-    postImage(req.file, req.body, ref => {
-
-      // add to profile
-      includeOnProfile("post", ref, req.body.poster);
-
-      // place photo in followers's feeds
-      includeInFollowerFeeds(ref, req.body.poster);
-
-      // send poster success message and ref number of new post
-      res.send({
-        success: true,
-        ref
-      });
-
-    });
-  }
-  // otherwise send error messages
-  else {
-    // TODO
-    res.send({ success: false });
-  }
 });
 
 /* Handles registration attempts */
@@ -95,5 +73,21 @@ router.post("/sign-in", (req, res) => {
   })
 
 });
+
+router.post("/push-frame", (req, res) => {
+
+  console.log("API POST: /post/push-frame");
+
+  chunkHandler.addChunk(req.body.sourceUser, req.body.index, req.body.chunk, response => {
+    res.send(response);
+  });
+
+});
+
+router.post("/include-post-data", (req, res) => {
+
+  chunkHandler.addPostData(req.body);
+
+})
 
 module.exports = router;

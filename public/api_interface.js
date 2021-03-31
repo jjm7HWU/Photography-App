@@ -42,6 +42,62 @@ function getChallenges() {
 
 }
 
+function chunkText(text) {
+  const chunkSize = 2000;
+  const chunks = new Array();
+  for (let i = 0; i <= text.length; i += chunkSize) {
+    chunks.push(text.substring(i, i + chunkSize));
+  }
+  chunks.push("#");
+  return chunks;
+}
+
+function pushFrames() {
+
+  const image = getElement("frame-text").value;
+  const poster = getElement("frame-username").value;
+  const caption = getElement("frame-caption").value;
+  const location = getElement("frame-location").value;
+  const hashtags = getElement("frame-hashtags").value;
+
+  const array = chunkText(image);
+
+  const i = new Array(array.length).fill(0).map((e,i) => i);
+  const indices = new Array();
+
+  for (let x = 0; x < array.length; x++) {
+    let r = Math.floor(Math.random() * i.length);
+    indices.push(i[r]);
+    i.splice(r,1);
+  }
+
+  console.log(array);
+  console.log(indices);
+
+  postMethodFetch({ poster, caption, location, hashtags }, "/post/include-post-data", response => {
+    console.log(response);
+  });
+
+  indices.forEach(v => {
+
+    const submission = {
+      sourceUser: getElement("frame-username").value,
+      index: v,
+      chunk: array[v]
+    };
+
+    console.log(submission);
+
+    postMethodFetch(submission, "/post/push-frame", res => {
+      // console.log(res);
+    });
+  
+    console.log("Sent frame " + v);
+
+  });
+
+}
+
 function submitTask() {
 
   console.log("click");

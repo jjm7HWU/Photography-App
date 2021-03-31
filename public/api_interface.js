@@ -62,6 +62,18 @@ function submitTask() {
 
 }
 
+function getTasksDone() {
+
+  const submission = {
+    sourceUser: getElement("tasks-done-username").value
+  };
+
+  postMethodFetch(submission, "/api_custom/tasks-done", res => {
+    console.log(res);
+  });
+
+}
+
 function evaluateTaskSubmission() {
 
   const submission = {

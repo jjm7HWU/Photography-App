@@ -304,8 +304,8 @@ const CHALLENGES = [
 	question: "Is this Tolbooth Museum"
       },
       {
-	desc: "Photograph Aberdeen Science Center",
-	question: "Is this a photo of Aberdeen Science Center?"
+	desc: "Take a picture of Old Aberdeen Town House",
+	question: "Is this the Old Aberdeen Town House?"
       },
       {
 	desc: "Find and photograph King's College Chapel",
@@ -331,7 +331,7 @@ const CHALLENGES = [
 	question: "Is this a puffin?"
       },
       {
-	desc: "Find the prehistoric settlment at Jarlshof",
+	desc: "Find the prehistoric settlement at Jarlshof",
 	question: "Is this the Jarlshof prehistoric settlement?"
       },
       {

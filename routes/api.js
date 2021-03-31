@@ -134,23 +134,6 @@ router.get("/leaderboard/global", (req, res) => {
 
 });
 
-/* May generalise this with a :collection paramter to remove repeated APIs */
-/* Sends comments on photo of reference number */
-router.get("/comments/:ref", (req, res) => {
-
-  req.params.ref = parseInt(req.params.ref);
-
-  const collection = database.collection("photos");
-
-  collection.findOne({ "ref": req.params.ref }).then(entry => {
-    res.send({
-      enabled: true,
-      comments: commentsUsers
-    });
-  });
-
-});
-
 /* Sends user's followers as a list of usernames */
 router.get("/followers/:username", (req, res) => {
   console.log("API GET: /followers/:username");

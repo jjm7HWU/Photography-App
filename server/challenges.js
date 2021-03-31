@@ -186,7 +186,17 @@ function completeChallenge(username, ref, challengeID, taskIndex) {
 
 }
 
+function getCompletedTasks(username, next) {
+
+  retrieveDocument("user_tasks", { username }, doc => {
+    response = { success: true, completed: doc.completed } || { success: false, message: "cannot find user tasks" };
+    next(response);
+  });
+
+}
+
 module.exports = {
+  getCompletedTasks,
   evaluateTaskSubmission,
   submitTask
 };

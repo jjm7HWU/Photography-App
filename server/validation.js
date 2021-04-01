@@ -15,10 +15,11 @@ function userExists(username) {
 }
 
 function validatePost(submission) {
-  return (submission.caption
-      &&  submission.poster
-      &&  submission.location != null
-      &&  submission.hashtags
+  return (
+	typeof submission.caption === "string"
+    &&  typeof submission.poster === "string"
+    &&  typeof submission.location === "string"
+    &&  typeof submission.hashtags === "string"
   );
 }
 

@@ -87,6 +87,7 @@ router.post("/push-frame", (req, res) => {
 router.post("/include-post-data", (req, res) => {
 
   chunkHandler.addPostData(req.body);
+  res.send({ success: true });
 
 })
 

@@ -16,15 +16,7 @@ class ChunkHandler {
 
     let upload = this.uploads[username];
 
-    if (!upload) {
-      upload = {
-	username,
-	chunks: new Array(),
-	chunkCount: 0,
-	desiredCount: -1
-      };
-      this.uploads[username] = upload;
-    }
+    if (!upload) return;
 
     if (chunk.slice(-1) === "#") {
       upload.desiredCount = index + 1;
@@ -42,6 +34,8 @@ class ChunkHandler {
       string = string.substring(0,string.length-1);
       let postData = this.postsData[username];
       uploadBase64Image(string, postData, response => console.log(response));
+      delete this.uploads[username];
+      delete this.postsData[username];
     }
 
     next(response);
@@ -54,6 +48,13 @@ class ChunkHandler {
     const poster = body.poster;
     const location = body.location;
     const hashtags = body.hashtags;
+    const upload = {
+      username: poster,
+      chunks: new Array(),
+      chunkCount: 0,
+      desiredCount: -1
+    };
+    this.uploads[poster] = upload;
     this.postsData[poster] = { caption, poster, location, hashtags };
   }
 

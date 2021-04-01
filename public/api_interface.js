@@ -43,7 +43,7 @@ function getChallenges() {
 }
 
 function chunkText(text) {
-  const chunkSize = 2000;
+  const chunkSize = 20000;
   const chunks = new Array();
   for (let i = 0; i <= text.length; i += chunkSize) {
     chunks.push(text.substring(i, i + chunkSize));
@@ -76,25 +76,27 @@ function pushFrames() {
 
   postMethodFetch({ poster, caption, location, hashtags }, "/post/include-post-data", response => {
     console.log(response);
-  });
 
-  indices.forEach(v => {
+    indices.forEach(v => {
 
-    const submission = {
-      sourceUser: getElement("frame-username").value,
-      index: v,
-      chunk: array[v]
-    };
+      const submission = {
+	sourceUser: getElement("frame-username").value,
+	index: v,
+	chunk: array[v]
+      };
 
-    console.log(submission);
+      console.log(submission);
 
-    postMethodFetch(submission, "/post/push-frame", res => {
-      // console.log(res);
+      postMethodFetch(submission, "/post/push-frame", res => {
+	// console.log(res);
+      });
+    
+      console.log("Sent frame " + v);
+
     });
-  
-    console.log("Sent frame " + v);
 
   });
+
 
 }
 

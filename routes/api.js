@@ -10,20 +10,22 @@ const { retrieveDocument, retrieveManyDocuments } = require("../server/read_data
 
 const router = express.Router();
 
-/* DUMMY FUNCTION - To be implemented */
-/* This will retrieve the user data from the database */
-function getUser(username) {
+function extractPost(post, username) {
+
   return {
-    username: username,
-    country: "United Kingdom",
-    area: "Edinburgh",
-    joindate: "27 Mar 2021",
-    bio: "I mostly do city life stuff but occasionally slip out into the wilderness.",
-    rank: 12,
-    points: 132,
-    followers: 137,
-    following: 43
-  }
+    ref: post.ref,
+    caption: post.caption,
+    poster: post.poster,
+    hearts: post.heartsUsers.length,
+    comments: post.commentsUsers.length,
+    commentsArray: post.commentsUsers,
+    location: post.location,
+    hashtags: post.hashtags,
+    hearted: (username && post.heartsUsers.includes(username)),
+    lon: post.lon,
+    lat: post.lat
+  };
+
 }
 
 /* Sends information for photo of specified reference number */
@@ -45,17 +47,7 @@ router.get("/photo/:refs", (req, res) => {
     let posts = new Array();
 
     cursor.forEach(entry => {
-      posts.push({
-	ref: entry.ref,
-	caption: entry.caption,
-	poster: entry.poster,
-	hearts: entry.heartsUsers.length,
-	comments: entry.commentsUsers.length,
-	commentsArray: entry.commentsUsers,
-	location: entry.location,
-	hashtags: entry.hashtags,
-	hearted: (req.query.username && entry.heartsUsers.includes(req.query.username))
-      });
+      posts.push(extractPost(entry, req.query.username));
     })
     .then(() => {
       res.send(posts);
@@ -168,12 +160,17 @@ router.get("/challenges", (req, res) => {
 });
 
 router.get("/pinpoints", (req, res) => {
-  let response = [
-    { type: "photo", ref: "24701358208326510000" },
-    { type: "photo", ref: "45641610956516400000" },
-    { type: "photo", ref: "2" }
-  ];
-  res.send(response);
+  const response = new Array();
+  retrieveManyDocuments("photos", {}, cursor => {
+    cursor.forEach(entry => {
+      if (entry.lon !== undefined && entry.lat !== undefined) {
+	response.push(extractPost(entry, req.query.username));
+      }
+    })
+    .then(() => {
+      res.send(response);
+    });
+  });
 });
 
 module.exports = router;

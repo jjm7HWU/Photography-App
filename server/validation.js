@@ -17,7 +17,7 @@ function userExists(username) {
 function validatePost(submission) {
   return (submission.caption
       &&  submission.poster
-      &&  submission.location
+      &&  submission.location != null
       &&  submission.hashtags
   );
 }

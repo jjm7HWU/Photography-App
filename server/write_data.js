@@ -182,7 +182,7 @@ function handleUpload(body, filePath, next) {
   // otherwise send error messages
   else {
     // TODO
-    response = { success: false };
+    response = { success: false, message: "post invalid" };
   }
 
   next(response);

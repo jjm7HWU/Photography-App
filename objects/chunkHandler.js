@@ -29,16 +29,20 @@ class ChunkHandler {
     if (upload.chunkCount === upload.desiredCount) {
       console.log("Chunking complete");
       console.log("Final size = " + upload.desiredCount);
-      response.completed = true;
       let string = upload.chunks.join("");
       string = string.substring(0,string.length-1);
       let postData = this.postsData[username];
-      uploadBase64Image(string, postData, response => console.log(response));
+      uploadBase64Image(string, postData, resp => {
+	response = resp;
+	response.completed = true;
+	next(response);
+      });
       delete this.uploads[username];
       delete this.postsData[username];
     }
-
-    next(response);
+    else {
+      next(response);
+    }
 
 
   }

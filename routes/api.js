@@ -22,8 +22,8 @@ function extractPost(post, username) {
     location: post.location,
     hashtags: post.hashtags,
     hearted: (username && post.heartsUsers.includes(username)),
-    lon: post.lon,
-    lat: post.lat
+    longitude: post.lon,
+    latitude: post.lat
   };
 
 }
